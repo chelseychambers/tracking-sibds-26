@@ -25,9 +25,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 
 from modules.label_csv_utils import load_keypoints
 
-MASK_AREA_LOWER_QUANTILE = 0.10
-MASK_AREA_UPPER_QUANTILE = 0.90
-MIN_MASK_AREA_PIXELS = 1000
+MASK_AREA_LOWER_QUANTILE = float(os.getenv("SAM2_MASK_AREA_LOWER_QUANTILE", "0.10"))
+MASK_AREA_UPPER_QUANTILE = float(os.getenv("SAM2_MASK_AREA_UPPER_QUANTILE", "0.90"))
+MIN_MASK_AREA_PIXELS = int(float(os.getenv("SAM2_MIN_MASK_AREA_PIXELS", "1000")))
 LABELED_DATA_DIR = os.path.join("input", "labeled-data")
 
 

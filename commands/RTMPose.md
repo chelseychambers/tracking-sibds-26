@@ -73,6 +73,9 @@ python scripts/keypoints/RTMPose_predict.py \
   --visibility-cutoff 0.5 \
   --checkpoint output/RTMPose/no_weak_20260328_174401/checkpoint_best.pt \
   --video test_videos/Camera4_stitched_600_660.mp4
+
+
+  output/RTMPose/old_safe_strict40_20260330_134205/history.json
 ```
 
 

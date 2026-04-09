@@ -351,6 +351,35 @@ def load_mask_frame_dict(mask_path: Path) -> dict[int, np.ndarray]:
     return mask_map
 
 
+def load_raw_mask_frame_dict(mask_path: Path) -> dict[int, dict[int, np.ndarray]]:
+    with mask_path.open("rb") as f:
+        payload = pickle.load(f)
+    raw_map: dict[int, dict[int, np.ndarray]] = {}
+    if not isinstance(payload, Mapping):
+        return raw_map
+    for key, value in payload.items():
+        try:
+            frame_idx = int(key)
+        except (TypeError, ValueError):
+            continue
+        if not isinstance(value, Mapping) or not value:
+            continue
+        frame_masks: dict[int, np.ndarray] = {}
+        for obj_id, obj_mask in value.items():
+            try:
+                obj_key = int(obj_id)
+            except (TypeError, ValueError):
+                continue
+            mask = np.asarray(obj_mask).astype(bool)
+            if mask.ndim == 3 and mask.shape[0] == 1:
+                mask = mask[0]
+            if mask.ndim == 2:
+                frame_masks[obj_key] = mask
+        if frame_masks:
+            raw_map[frame_idx] = frame_masks
+    return raw_map
+
+
 def list_frame_files(video_frames_dir: Path) -> dict[int, str]:
     frame_files: dict[int, str] = {}
     if not video_frames_dir.is_dir():
@@ -365,6 +394,33 @@ def list_frame_files(video_frames_dir: Path) -> dict[int, str]:
             continue
         frame_files[frame_idx] = str(video_frames_dir / name)
     return frame_files
+
+
+def mask_bbox_xyxy(mask: np.ndarray) -> np.ndarray | None:
+    ys, xs = np.where(mask > 0)
+    if ys.size == 0 or xs.size == 0:
+        return None
+    x1 = float(xs.min())
+    y1 = float(ys.min())
+    x2 = float(xs.max() + 1)
+    y2 = float(ys.max() + 1)
+    return np.asarray([x1, y1, x2, y2], dtype=np.float32)
+
+
+def bbox_iou_xyxy(box_a: np.ndarray, box_b: np.ndarray) -> float:
+    x1 = max(float(box_a[0]), float(box_b[0]))
+    y1 = max(float(box_a[1]), float(box_b[1]))
+    x2 = min(float(box_a[2]), float(box_b[2]))
+    y2 = min(float(box_a[3]), float(box_b[3]))
+    inter_w = max(0.0, x2 - x1)
+    inter_h = max(0.0, y2 - y1)
+    inter_area = inter_w * inter_h
+    area_a = max(0.0, float(box_a[2]) - float(box_a[0])) * max(0.0, float(box_a[3]) - float(box_a[1]))
+    area_b = max(0.0, float(box_b[2]) - float(box_b[0])) * max(0.0, float(box_b[3]) - float(box_b[1]))
+    denom = area_a + area_b - inter_area
+    if denom <= 0:
+        return 0.0
+    return float(inter_area / denom)
 
 
 def extract_keypoints_for_row(df, row_idx: int, bodyparts: Sequence[str]) -> tuple[list[list[float]], list[int]]:
@@ -658,6 +714,7 @@ def collate_pose_batch(items: Sequence[dict[str, Any]]) -> dict[str, Any]:
         "source_name": [item["source_name"] for item in items],
         "crop_box": torch.from_numpy(np.stack([item["crop_box"] for item in items], axis=0)).float(),
         "orig_size": torch.from_numpy(np.stack([item["orig_size"] for item in items], axis=0)).float(),
+        "mask_det_iou": torch.tensor([float(item["mask_det_iou"]) for item in items], dtype=torch.float32),
         "debug_image": torch.stack([item["debug_image"] for item in items], dim=0),
     }
 
@@ -954,6 +1011,7 @@ class RamImageMaskStore:
     def __init__(self) -> None:
         self.image_cache: dict[str, np.ndarray] = {}
         self.mask_cache: dict[str, dict[int, np.ndarray]] = {}
+        self.raw_mask_cache: dict[str, dict[int, dict[int, np.ndarray]]] = {}
 
     def load_image(self, image_path: str) -> np.ndarray:
         if image_path in self.image_cache:
@@ -965,13 +1023,49 @@ class RamImageMaskStore:
         self.image_cache[image_path] = image_rgb
         return image_rgb
 
-    def load_mask(self, mask_path: str, frame_idx: int) -> np.ndarray:
-        if mask_path not in self.mask_cache:
-            self.mask_cache[mask_path] = load_mask_frame_dict(Path(mask_path))
-        mask_map = self.mask_cache[mask_path]
-        if frame_idx not in mask_map:
+    def load_mask(
+        self,
+        mask_path: str,
+        frame_idx: int,
+        *,
+        policy: str = "first",
+        bbox_xyxy: np.ndarray | None = None,
+    ) -> np.ndarray:
+        if policy == "first":
+            if mask_path not in self.mask_cache:
+                self.mask_cache[mask_path] = load_mask_frame_dict(Path(mask_path))
+            mask_map = self.mask_cache[mask_path]
+            if frame_idx not in mask_map:
+                raise KeyError(f"Missing SAM2 mask for frame {frame_idx} in {mask_path}")
+            return mask_map[frame_idx]
+
+        if mask_path not in self.raw_mask_cache:
+            self.raw_mask_cache[mask_path] = load_raw_mask_frame_dict(Path(mask_path))
+        raw_map = self.raw_mask_cache[mask_path]
+        if frame_idx not in raw_map:
             raise KeyError(f"Missing SAM2 mask for frame {frame_idx} in {mask_path}")
-        return mask_map[frame_idx]
+        frame_masks = raw_map[frame_idx]
+        if not frame_masks:
+            raise KeyError(f"Missing SAM2 mask for frame {frame_idx} in {mask_path}")
+        if policy == "largest":
+            return max(frame_masks.values(), key=lambda m: int(m.sum()))
+        if policy == "best_iou":
+            if bbox_xyxy is None:
+                return max(frame_masks.values(), key=lambda m: int(m.sum()))
+            best_mask = None
+            best_iou = -1.0
+            for candidate in frame_masks.values():
+                bbox = mask_bbox_xyxy(candidate)
+                if bbox is None:
+                    continue
+                iou = bbox_iou_xyxy(bbox, bbox_xyxy)
+                if iou > best_iou:
+                    best_iou = iou
+                    best_mask = candidate
+            if best_mask is not None:
+                return best_mask
+            return max(frame_masks.values(), key=lambda m: int(m.sum()))
+        raise ValueError(f"Unsupported mask select policy: {policy}")
 
     def preload(self, samples: Sequence[object], preload_images: bool, preload_masks: bool) -> dict[str, Any]:
         image_bytes = 0
@@ -1157,6 +1251,8 @@ class RTMPoseDataset(Dataset):
         train_mode: bool,
         include_weak: bool,
         use_masks: bool,
+        mask_select_policy: str,
+        weak_mask_iou_thresh: float,
     ) -> None:
         self.samples = list(samples)
         self.store = store
@@ -1173,6 +1269,8 @@ class RTMPoseDataset(Dataset):
         self.train_mode = bool(train_mode)
         self.include_weak = bool(include_weak)
         self.use_masks = bool(use_masks)
+        self.mask_select_policy = str(mask_select_policy)
+        self.weak_mask_iou_thresh = float(weak_mask_iou_thresh)
         name_to_idx = {name: idx for idx, name in enumerate(self.bodyparts)}
         self.flip_pairs = [
             (name_to_idx[left], name_to_idx[right])
@@ -1186,12 +1284,6 @@ class RTMPoseDataset(Dataset):
     def __getitem__(self, index: int) -> dict[str, Any]:
         sample = self.samples[index]
         image = self.store.load_image(sample.image_path)
-        mask = None
-        if self.use_masks:
-            try:
-                mask = self.store.load_mask(sample.mask_path, sample.frame_idx)
-            except KeyError:
-                mask = None
 
         keypoints = np.zeros((len(self.bodyparts), 3), dtype=np.float32)
         if hasattr(sample, "keypoints"):
@@ -1216,6 +1308,31 @@ class RTMPoseDataset(Dataset):
             det_box = np.asarray(det["box"], dtype=np.float32)
             x1, y1, x2, y2 = expand_box_xyxy(det_box, image.shape[:2], self.crop_expand_scale)
             bbox_xyxy = np.asarray([x1, y1, x2, y2], dtype=np.float32)
+
+        mask = None
+        mask_det_iou = -1.0
+        if self.use_masks:
+            try:
+                policy = "first"
+                bbox_for_policy = None
+                if not hasattr(sample, "keypoints"):
+                    policy = self.mask_select_policy
+                    bbox_for_policy = bbox_xyxy
+                mask = self.store.load_mask(
+                    sample.mask_path,
+                    sample.frame_idx,
+                    policy=policy,
+                    bbox_xyxy=bbox_for_policy,
+                )
+            except KeyError:
+                mask = None
+        if mask is not None and not hasattr(sample, "keypoints"):
+            mask_box = mask_bbox_xyxy(mask)
+            if mask_box is not None:
+                mask_det_iou = bbox_iou_xyxy(mask_box, bbox_xyxy)
+                if self.weak_mask_iou_thresh > 0.0 and mask_det_iou < self.weak_mask_iou_thresh:
+                    mask = None
+                    mask_det_iou = -1.0
 
         # DLC-like order: full-image augmentation first, then top-down crop.
         if self.train_mode:
@@ -1362,6 +1479,7 @@ class RTMPoseDataset(Dataset):
             "crop_box": np.asarray(crop_box, dtype=np.float32),
             "roi_box_in_crop": roi_box.astype(np.float32),
             "orig_size": np.asarray([image.shape[1], image.shape[0]], dtype=np.float32),
+            "mask_det_iou": float(mask_det_iou),
             "debug_image": torch.from_numpy(np.ascontiguousarray(debug_image.transpose(2, 0, 1).astype(np.float32) / 255.0)),
         }
 
@@ -1434,6 +1552,7 @@ def expected_points_mask_loss(
     mask: torch.Tensor,
     split_ratio: float,
     visibility: Optional[torch.Tensor] = None,
+    weights: Optional[torch.Tensor] = None,
 ) -> torch.Tensor:
     probs_x, probs_y = simcc_probabilities(outputs)
     mask_resized = F.interpolate(
@@ -1444,11 +1563,164 @@ def expected_points_mask_loss(
     ).squeeze(1).clamp(0.0, 1.0)
     inside_mass = torch.einsum("bky,byx,bkx->bk", probs_y, mask_resized, probs_x)
     loss = 1.0 - inside_mass
+    weight_tensor: Optional[torch.Tensor] = None
     if visibility is not None:
-        weights = visibility.float().clamp_min(0.0)
-        denom = weights.sum().clamp_min(1.0)
-        return (loss * weights).sum() / denom
+        weight_tensor = visibility.float().clamp_min(0.0)
+    if weights is not None:
+        weight_tensor = weights.float().clamp_min(0.0) if weight_tensor is None else weight_tensor * weights.float().clamp_min(0.0)
+    if weight_tensor is not None:
+        denom = weight_tensor.sum().clamp_min(1.0)
+        return (loss * weight_tensor).sum() / denom
     return loss.mean()
+
+
+def ring_masks(mask_resized: torch.Tensor, radius: int) -> tuple[torch.Tensor, torch.Tensor]:
+    if radius <= 0:
+        return mask_resized, mask_resized
+    kernel = 2 * int(radius) + 1
+    outer = F.max_pool2d(mask_resized.unsqueeze(1), kernel_size=kernel, stride=1, padding=radius).squeeze(1).clamp(0.0, 1.0)
+    inv = (1.0 - mask_resized).unsqueeze(1)
+    core = (1.0 - F.max_pool2d(inv, kernel_size=kernel, stride=1, padding=radius)).squeeze(1).clamp(0.0, 1.0)
+    return core, outer
+
+
+def weighted_loss_reduce(loss: torch.Tensor, visibility: Optional[torch.Tensor], weights: Optional[torch.Tensor]) -> torch.Tensor:
+    weight_tensor: Optional[torch.Tensor] = None
+    if visibility is not None:
+        weight_tensor = visibility.float().clamp_min(0.0)
+    if weights is not None:
+        sample_weights = weights.float().clamp_min(0.0)
+        weight_tensor = sample_weights if weight_tensor is None else weight_tensor * sample_weights
+    if weight_tensor is None:
+        return loss.mean()
+    denom = weight_tensor.sum().clamp_min(1.0)
+    return (loss * weight_tensor).sum() / denom
+
+
+def mask_ring_loss(
+    outputs: Mapping[str, torch.Tensor],
+    mask: torch.Tensor,
+    ring_radius: int,
+    outside_weight: float,
+    mass_floor: float,
+    visibility: Optional[torch.Tensor] = None,
+    weights: Optional[torch.Tensor] = None,
+) -> torch.Tensor:
+    probs_x, probs_y = simcc_probabilities(outputs)
+    mask_resized = F.interpolate(
+        mask.float(),
+        size=(probs_y.shape[-1], probs_x.shape[-1]),
+        mode="bilinear",
+        align_corners=False,
+    ).squeeze(1).clamp(0.0, 1.0)
+    core, outer = ring_masks(mask_resized, ring_radius)
+    inside_core = torch.einsum("bky,byx,bkx->bk", probs_y, core, probs_x)
+    outside_outer = torch.einsum("bky,byx,bkx->bk", probs_y, (1.0 - outer), probs_x)
+    loss = (1.0 - inside_core) + float(outside_weight) * outside_outer
+    if mass_floor > 0.0:
+        loss = loss + torch.relu(float(mass_floor) - inside_core)
+    return weighted_loss_reduce(loss, visibility, weights)
+
+
+def mask_trimmed_outside_loss(
+    outputs: Mapping[str, torch.Tensor],
+    mask: torch.Tensor,
+    outside_weight: float,
+    outside_trim: float,
+    mass_floor: float,
+    visibility: Optional[torch.Tensor] = None,
+    weights: Optional[torch.Tensor] = None,
+) -> torch.Tensor:
+    probs_x, probs_y = simcc_probabilities(outputs)
+    mask_resized = F.interpolate(
+        mask.float(),
+        size=(probs_y.shape[-1], probs_x.shape[-1]),
+        mode="bilinear",
+        align_corners=False,
+    ).squeeze(1).clamp(0.0, 1.0)
+    inside_mass = torch.einsum("bky,byx,bkx->bk", probs_y, mask_resized, probs_x)
+    outside_mass = 1.0 - inside_mass
+    outside_penalty = torch.relu(outside_mass - float(outside_trim))
+    loss = (1.0 - inside_mass) + float(outside_weight) * outside_penalty
+    if mass_floor > 0.0:
+        loss = loss + torch.relu(float(mass_floor) - inside_mass)
+    return weighted_loss_reduce(loss, visibility, weights)
+
+
+def simcc_peak_confidence(outputs: Mapping[str, torch.Tensor]) -> torch.Tensor:
+    probs_x, probs_y = simcc_probabilities(outputs)
+    conf_x = probs_x.max(dim=-1).values
+    conf_y = probs_y.max(dim=-1).values
+    return torch.sqrt(conf_x * conf_y).clamp_min(0.0)
+
+
+def weak_quality_weights(
+    outputs: Mapping[str, torch.Tensor],
+    mask_det_iou: torch.Tensor,
+    iou_t0: float,
+    iou_t1: float,
+    iou_power: float,
+    conf_power: float,
+) -> torch.Tensor:
+    conf = simcc_peak_confidence(outputs).clamp(0.0, 1.0).pow(float(conf_power))
+    denom = max(1e-6, float(iou_t1) - float(iou_t0))
+    iou_w = ((mask_det_iou.float() - float(iou_t0)) / denom).clamp(0.0, 1.0).pow(float(iou_power)).unsqueeze(-1)
+    return conf * iou_w
+
+
+def mask_alignment_loss(
+    outputs: Mapping[str, torch.Tensor],
+    mask: torch.Tensor,
+    split_ratio: float,
+    visibility: Optional[torch.Tensor] = None,
+    weights: Optional[torch.Tensor] = None,
+) -> torch.Tensor:
+    exp_points, _ = expected_keypoints_from_outputs(outputs, split_ratio)
+    probs_x, probs_y = simcc_probabilities(outputs)
+    mask_resized = F.interpolate(
+        mask.float(),
+        size=(probs_y.shape[-1], probs_x.shape[-1]),
+        mode="bilinear",
+        align_corners=False,
+    ).squeeze(1).clamp(0.0, 1.0)
+    scale = torch.tensor([probs_x.shape[-1], probs_y.shape[-1]], device=exp_points.device, dtype=exp_points.dtype)
+    coords = (exp_points * float(split_ratio)) / (scale - 1.0).clamp_min(1.0)
+    grid = coords * 2.0 - 1.0
+    grid = grid[..., [0, 1]].unsqueeze(2)
+    sampled = F.grid_sample(mask_resized.unsqueeze(1), grid, align_corners=True, mode="bilinear").squeeze(1).squeeze(-1)
+    loss = 1.0 - sampled
+    weight_tensor: Optional[torch.Tensor] = None
+    if visibility is not None:
+        weight_tensor = visibility.float().clamp_min(0.0)
+    if weights is not None:
+        weight_tensor = weights.float().clamp_min(0.0) if weight_tensor is None else weight_tensor * weights.float().clamp_min(0.0)
+    if weight_tensor is not None:
+        denom = weight_tensor.sum().clamp_min(1.0)
+        return (loss * weight_tensor).sum() / denom
+    return loss.mean()
+
+
+def mask_variance_penalty(
+    outputs: Mapping[str, torch.Tensor],
+    mask: torch.Tensor,
+) -> torch.Tensor:
+    probs_x, probs_y = simcc_probabilities(outputs)
+    device = probs_x.device
+    x_axis = torch.arange(probs_x.shape[-1], device=device, dtype=probs_x.dtype)
+    y_axis = torch.arange(probs_y.shape[-1], device=device, dtype=probs_y.dtype)
+    exp_x = torch.einsum("bkx,x->bk", probs_x, x_axis)
+    exp_y = torch.einsum("bky,y->bk", probs_y, y_axis)
+    var_x = (probs_x * (x_axis[None, None, :] - exp_x.unsqueeze(-1)) ** 2).sum(dim=-1)
+    var_y = (probs_y * (y_axis[None, None, :] - exp_y.unsqueeze(-1)) ** 2).sum(dim=-1)
+    mask_resized = F.interpolate(
+        mask.float(),
+        size=(probs_y.shape[-1], probs_x.shape[-1]),
+        mode="bilinear",
+        align_corners=False,
+    ).squeeze(1).clamp(0.0, 1.0)
+    inside_mass = torch.einsum("bky,byx,bkx->bk", probs_y, mask_resized, probs_x)
+    weight = inside_mass.detach().clamp(0.0, 1.0)
+    return ((var_x + var_y) * weight).mean()
 
 
 def entropy_regularization(outputs: Mapping[str, torch.Tensor]) -> torch.Tensor:
@@ -1618,6 +1890,20 @@ def train_one_epoch(
     lambda_visibility: float,
     lambda_entropy: float,
     weak_sample_weight: float,
+    mask_on_labeled: bool,
+    mask_loss_mode: str,
+    mask_variance_weight: float,
+    mask_conf_threshold: float,
+    weak_use_quality_weight: bool,
+    weak_use_visibility_gate: bool,
+    weak_iou_weight_t0: float,
+    weak_iou_weight_t1: float,
+    weak_iou_weight_power: float,
+    weak_conf_weight_power: float,
+    mask_ring_radius: int,
+    mask_outside_weight: float,
+    mask_outside_trim: float,
+    mask_mass_floor: float,
     use_amp: bool,
     log_interval: int,
     freeze_backbone: bool,
@@ -1672,6 +1958,9 @@ def train_one_epoch(
             keypoints = batch["keypoints"].to(device, non_blocking=True)
             mask = batch["mask"].to(device, non_blocking=True)
             has_mask = batch["has_mask"].to(device, non_blocking=True)
+            mask_det_iou = batch.get("mask_det_iou")
+            if mask_det_iou is not None:
+                mask_det_iou = mask_det_iou.to(device, non_blocking=True)
             maybe_cuda_sync(device)
             h2d_time += time.perf_counter() - h2d_start
 
@@ -1682,8 +1971,37 @@ def train_one_epoch(
                 if float(batch["is_labeled"].max().item()) > 0.5:
                     supervised = model.compute_supervised_loss(outputs, keypoints)
                     supervised_total = supervised_total_loss(supervised)
-                    if float(has_mask.max().item()) > 0.5:
-                        mask_loss = expected_points_mask_loss(outputs, mask, split_ratio, keypoints[..., 2])
+                    if mask_on_labeled and float(has_mask.max().item()) > 0.5:
+                        weights = None
+                        if mask_conf_threshold > 0.0:
+                            conf = simcc_peak_confidence(outputs)
+                            weights = (conf >= mask_conf_threshold).float()
+                        if mask_loss_mode == "alignment":
+                            mask_loss = mask_alignment_loss(outputs, mask, split_ratio, keypoints[..., 2], weights)
+                        elif mask_loss_mode == "ring":
+                            mask_loss = mask_ring_loss(
+                                outputs,
+                                mask,
+                                ring_radius=int(mask_ring_radius),
+                                outside_weight=float(mask_outside_weight),
+                                mass_floor=float(mask_mass_floor),
+                                visibility=keypoints[..., 2],
+                                weights=weights,
+                            )
+                        elif mask_loss_mode == "trimmed":
+                            mask_loss = mask_trimmed_outside_loss(
+                                outputs,
+                                mask,
+                                outside_weight=float(mask_outside_weight),
+                                outside_trim=float(mask_outside_trim),
+                                mass_floor=float(mask_mass_floor),
+                                visibility=keypoints[..., 2],
+                                weights=weights,
+                            )
+                        else:
+                            mask_loss = expected_points_mask_loss(outputs, mask, split_ratio, keypoints[..., 2], weights)
+                        if mask_loss_mode == "variance" and mask_variance_weight > 0.0:
+                            mask_loss = mask_loss + mask_variance_weight * mask_variance_penalty(outputs, mask)
                     else:
                         mask_loss = outputs["x"].sum() * 0.0
                     vis_loss = visibility_loss(outputs, keypoints)
@@ -1698,7 +2016,49 @@ def train_one_epoch(
                     visibility_log += float(vis_loss.item())
                 else:
                     if float(has_mask.max().item()) > 0.5:
-                        mask_loss = expected_points_mask_loss(outputs, mask, split_ratio, None)
+                        weights = None
+                        if mask_conf_threshold > 0.0:
+                            conf = simcc_peak_confidence(outputs)
+                            weights = (conf >= mask_conf_threshold).float()
+                        if weak_use_quality_weight and mask_det_iou is not None:
+                            q_weights = weak_quality_weights(
+                                outputs,
+                                mask_det_iou,
+                                iou_t0=float(weak_iou_weight_t0),
+                                iou_t1=float(weak_iou_weight_t1),
+                                iou_power=float(weak_iou_weight_power),
+                                conf_power=float(weak_conf_weight_power),
+                            )
+                            weights = q_weights if weights is None else weights * q_weights
+                        if weak_use_visibility_gate:
+                            vis_w = visibility_probabilities(outputs).detach().clamp(0.0, 1.0)
+                            weights = vis_w if weights is None else weights * vis_w
+                        if mask_loss_mode == "alignment":
+                            mask_loss = mask_alignment_loss(outputs, mask, split_ratio, None, weights)
+                        elif mask_loss_mode == "ring":
+                            mask_loss = mask_ring_loss(
+                                outputs,
+                                mask,
+                                ring_radius=int(mask_ring_radius),
+                                outside_weight=float(mask_outside_weight),
+                                mass_floor=float(mask_mass_floor),
+                                visibility=None,
+                                weights=weights,
+                            )
+                        elif mask_loss_mode == "trimmed":
+                            mask_loss = mask_trimmed_outside_loss(
+                                outputs,
+                                mask,
+                                outside_weight=float(mask_outside_weight),
+                                outside_trim=float(mask_outside_trim),
+                                mass_floor=float(mask_mass_floor),
+                                visibility=None,
+                                weights=weights,
+                            )
+                        else:
+                            mask_loss = expected_points_mask_loss(outputs, mask, split_ratio, None, weights)
+                        if mask_loss_mode == "variance" and mask_variance_weight > 0.0:
+                            mask_loss = mask_loss + mask_variance_weight * mask_variance_penalty(outputs, mask)
                         entropy_loss = entropy_regularization(outputs)
                         batch_total = weak_sample_weight * (lambda_mask * mask_loss + lambda_entropy * entropy_loss)
                     else:
@@ -2018,6 +2378,8 @@ def build_train_pose_datasets_for_epoch(
         train_mode=True,
         include_weak=False,
         use_masks=use_masks,
+        mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+        weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
     )
     train_weak = None
     if float(args.weak_sample_weight) > 0.0 and weak_samples:
@@ -2038,6 +2400,8 @@ def build_train_pose_datasets_for_epoch(
             train_mode=True,
             include_weak=True,
             use_masks=use_masks,
+            mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+            weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
         )
     return train_labeled, train_weak
 
@@ -2083,6 +2447,8 @@ def build_pose_datasets(
         train_mode=True,
         include_weak=False,
         use_masks=use_masks,
+        mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+        weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
     )
     train_weak = None
     if float(args.weak_sample_weight) > 0.0 and split_indices["train"].weak_samples:
@@ -2103,6 +2469,8 @@ def build_pose_datasets(
             train_mode=True,
             include_weak=True,
             use_masks=use_masks,
+            mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+            weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
         )
     val_set = RTMPoseDataset(
         split_indices["val"].labeled_samples,
@@ -2121,6 +2489,8 @@ def build_pose_datasets(
         train_mode=False,
         include_weak=False,
         use_masks=use_masks,
+        mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+        weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
     )
     train_eval_set = RTMPoseDataset(
         split_indices["train"].labeled_samples,
@@ -2139,6 +2509,8 @@ def build_pose_datasets(
         train_mode=False,
         include_weak=False,
         use_masks=use_masks,
+        mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+        weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
     )
     return train_labeled, train_weak, val_set, train_eval_set
 
@@ -2464,6 +2836,20 @@ def command_train(args: argparse.Namespace) -> int:
                 lambda_visibility=float(args.lambda_visibility),
                 lambda_entropy=float(args.lambda_entropy),
                 weak_sample_weight=float(args.weak_sample_weight),
+                mask_on_labeled=bool(getattr(args, "mask_on_labeled", True)),
+                mask_loss_mode=str(getattr(args, "mask_loss_mode", "containment")),
+                mask_variance_weight=float(getattr(args, "mask_variance_weight", 0.0)),
+                mask_conf_threshold=float(getattr(args, "mask_conf_threshold", 0.0)),
+                weak_use_quality_weight=bool(getattr(args, "weak_use_quality_weight", False)),
+                weak_use_visibility_gate=bool(getattr(args, "weak_use_visibility_gate", False)),
+                weak_iou_weight_t0=float(getattr(args, "weak_iou_weight_t0", 0.3)),
+                weak_iou_weight_t1=float(getattr(args, "weak_iou_weight_t1", 0.8)),
+                weak_iou_weight_power=float(getattr(args, "weak_iou_weight_power", 2.0)),
+                weak_conf_weight_power=float(getattr(args, "weak_conf_weight_power", 1.0)),
+                mask_ring_radius=int(getattr(args, "mask_ring_radius", 3)),
+                mask_outside_weight=float(getattr(args, "mask_outside_weight", 0.5)),
+                mask_outside_trim=float(getattr(args, "mask_outside_trim", 0.1)),
+                mask_mass_floor=float(getattr(args, "mask_mass_floor", 0.0)),
                 use_amp=bool(args.amp),
                 log_interval=int(args.log_interval),
                 freeze_backbone=bool(args.freeze_backbone),
@@ -2684,6 +3070,8 @@ def command_eval(args: argparse.Namespace) -> int:
         train_mode=False,
         include_weak=False,
         use_masks=use_masks,
+        mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+        weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
     )
     loader = build_dataloader(
         dataset,
@@ -2777,6 +3165,8 @@ def command_debug(args: argparse.Namespace) -> int:
             train_mode=True,
             include_weak=(source_name == "sam2"),
             use_masks=use_masks,
+            mask_select_policy=str(getattr(args, "mask_select_policy", "first")),
+            weak_mask_iou_thresh=float(getattr(args, "weak_mask_iou_thresh", 0.0)),
         )
         for idx in range(len(dataset)):
             item = dataset[idx]
@@ -2847,6 +3237,54 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--score-cutoff", type=float, default=0.0)
     parser.add_argument("--visibility-cutoff", type=float, default=0.5)
     parser.add_argument("--weak-sample-weight", type=float, default=1.0)
+    parser.add_argument(
+        "--mask-select-policy",
+        type=str,
+        choices=("first", "largest", "best_iou"),
+        default="first",
+        help="Policy for selecting SAM2 mask when multiple objects are present.",
+    )
+    parser.add_argument(
+        "--weak-mask-iou-thresh",
+        type=float,
+        default=0.0,
+        help="Minimum IoU between SAM2 mask bbox and detector bbox for weak samples.",
+    )
+    parser.add_argument(
+        "--mask-on-labeled",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Apply SAM2 mask loss to labeled samples (default true).",
+    )
+    parser.add_argument(
+        "--mask-loss-mode",
+        type=str,
+        choices=("containment", "variance", "alignment", "ring", "trimmed"),
+        default="containment",
+        help="Mask loss variant to use for weak supervision.",
+    )
+    parser.add_argument(
+        "--mask-variance-weight",
+        type=float,
+        default=0.0,
+        help="Additional variance penalty weight when using mask_loss_mode=variance.",
+    )
+    parser.add_argument(
+        "--mask-conf-threshold",
+        type=float,
+        default=0.0,
+        help="Confidence threshold for applying mask loss (SimCC peak conf).",
+    )
+    parser.add_argument("--weak-use-quality-weight", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--weak-use-visibility-gate", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--weak-iou-weight-t0", type=float, default=0.3)
+    parser.add_argument("--weak-iou-weight-t1", type=float, default=0.8)
+    parser.add_argument("--weak-iou-weight-power", type=float, default=2.0)
+    parser.add_argument("--weak-conf-weight-power", type=float, default=1.0)
+    parser.add_argument("--mask-ring-radius", type=int, default=3)
+    parser.add_argument("--mask-outside-weight", type=float, default=0.5)
+    parser.add_argument("--mask-outside-trim", type=float, default=0.1)
+    parser.add_argument("--mask-mass-floor", type=float, default=0.0)
     parser.add_argument("--save-every-n-epoch", type=int, default=1)
     parser.add_argument("--eval-every-n-epoch", type=int, default=1)
     parser.add_argument("--max-save", type=int, default=5)

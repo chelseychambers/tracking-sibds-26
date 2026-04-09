@@ -1,0 +1,5002 @@
+[
+  {
+    "frame_idx": 0,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        824,
+        572
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        683,
+        533
+      ],
+      "R_frontpaw": [
+        1,
+        771,
+        549
+      ],
+      "R_hip": [
+        1,
+        637,
+        447
+      ],
+      "R_knee": [
+        1,
+        639,
+        514
+      ],
+      "R_shoulder": [
+        1,
+        734,
+        530
+      ],
+      "head": [
+        1,
+        792,
+        408
+      ],
+      "nose": [
+        1,
+        923,
+        537
+      ],
+      "spine1": [
+        1,
+        735,
+        361
+      ],
+      "spine2": [
+        1,
+        685,
+        332
+      ],
+      "spine3": [
+        1,
+        615,
+        350
+      ],
+      "tail1": [
+        1,
+        477,
+        437
+      ],
+      "tail2": [
+        1,
+        402,
+        484
+      ],
+      "tail_tip": [
+        1,
+        365,
+        540
+      ],
+      "tailbase": [
+        1,
+        556,
+        449
+      ]
+    }
+  },
+  {
+    "frame_idx": 1,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        817,
+        572
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        668,
+        529
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        1,
+        619,
+        461
+      ],
+      "R_knee": [
+        1,
+        639,
+        517
+      ],
+      "R_shoulder": [
+        1,
+        729,
+        521
+      ],
+      "head": [
+        1,
+        784,
+        404
+      ],
+      "nose": [
+        1,
+        922,
+        527
+      ],
+      "spine1": [
+        1,
+        739,
+        362
+      ],
+      "spine2": [
+        1,
+        678,
+        333
+      ],
+      "spine3": [
+        1,
+        605,
+        367
+      ],
+      "tail1": [
+        1,
+        507,
+        434
+      ],
+      "tail2": [
+        1,
+        452,
+        443
+      ],
+      "tail_tip": [
+        1,
+        410,
+        467
+      ],
+      "tailbase": [
+        1,
+        561,
+        448
+      ]
+    }
+  },
+  {
+    "frame_idx": 3,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        814,
+        569
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        688,
+        539
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        1,
+        616,
+        457
+      ],
+      "R_knee": [
+        1,
+        636,
+        513
+      ],
+      "R_shoulder": [
+        1,
+        741,
+        528
+      ],
+      "head": [
+        1,
+        793,
+        401
+      ],
+      "nose": [
+        1,
+        929,
+        493
+      ],
+      "spine1": [
+        1,
+        740,
+        370
+      ],
+      "spine2": [
+        1,
+        691,
+        339
+      ],
+      "spine3": [
+        1,
+        624,
+        349
+      ],
+      "tail1": [
+        1,
+        508,
+        439
+      ],
+      "tail2": [
+        1,
+        454,
+        444
+      ],
+      "tail_tip": [
+        1,
+        409,
+        467
+      ],
+      "tailbase": [
+        1,
+        562,
+        454
+      ]
+    }
+  },
+  {
+    "frame_idx": 7,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        818,
+        567
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        683,
+        533
+      ],
+      "R_frontpaw": [
+        1,
+        767,
+        584
+      ],
+      "R_hip": [
+        1,
+        640,
+        453
+      ],
+      "R_knee": [
+        1,
+        639,
+        516
+      ],
+      "R_shoulder": [
+        1,
+        739,
+        531
+      ],
+      "head": [
+        1,
+        792,
+        374
+      ],
+      "nose": [
+        1,
+        951,
+        433
+      ],
+      "spine1": [
+        1,
+        735,
+        350
+      ],
+      "spine2": [
+        1,
+        687,
+        337
+      ],
+      "spine3": [
+        1,
+        616,
+        376
+      ],
+      "tail1": [
+        1,
+        509,
+        451
+      ],
+      "tail2": [
+        1,
+        455,
+        452
+      ],
+      "tail_tip": [
+        1,
+        411,
+        469
+      ],
+      "tailbase": [
+        1,
+        567,
+        454
+      ]
+    }
+  },
+  {
+    "frame_idx": 10,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        817,
+        564
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        826,
+        497
+      ],
+      "R_backpaw": [
+        1,
+        676,
+        530
+      ],
+      "R_frontpaw": [
+        1,
+        766,
+        584
+      ],
+      "R_hip": [
+        1,
+        623,
+        454
+      ],
+      "R_knee": [
+        1,
+        638,
+        516
+      ],
+      "R_shoulder": [
+        1,
+        740,
+        512
+      ],
+      "head": [
+        1,
+        803,
+        363
+      ],
+      "nose": [
+        1,
+        968,
+        395
+      ],
+      "spine1": [
+        1,
+        740,
+        347
+      ],
+      "spine2": [
+        1,
+        683,
+        336
+      ],
+      "spine3": [
+        1,
+        630,
+        362
+      ],
+      "tail1": [
+        1,
+        569,
+        453
+      ],
+      "tail2": [
+        1,
+        475,
+        448
+      ],
+      "tail_tip": [
+        1,
+        407,
+        470
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 11,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        821,
+        565
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        827,
+        507
+      ],
+      "R_backpaw": [
+        1,
+        686,
+        536
+      ],
+      "R_frontpaw": [
+        1,
+        770,
+        588
+      ],
+      "R_hip": [
+        1,
+        629,
+        450
+      ],
+      "R_knee": [
+        1,
+        638,
+        511
+      ],
+      "R_shoulder": [
+        1,
+        748,
+        519
+      ],
+      "head": [
+        1,
+        795,
+        356
+      ],
+      "nose": [
+        1,
+        965,
+        392
+      ],
+      "spine1": [
+        1,
+        749,
+        350
+      ],
+      "spine2": [
+        1,
+        705,
+        335
+      ],
+      "spine3": [
+        1,
+        651,
+        344
+      ],
+      "tail1": [
+        1,
+        569,
+        455
+      ],
+      "tail2": [
+        1,
+        485,
+        447
+      ],
+      "tail_tip": [
+        1,
+        407,
+        472
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 13,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        816,
+        567
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        823,
+        503
+      ],
+      "R_backpaw": [
+        1,
+        682,
+        538
+      ],
+      "R_frontpaw": [
+        1,
+        766,
+        583
+      ],
+      "R_hip": [
+        1,
+        621,
+        449
+      ],
+      "R_knee": [
+        1,
+        641,
+        521
+      ],
+      "R_shoulder": [
+        1,
+        753,
+        510
+      ],
+      "head": [
+        1,
+        802,
+        346
+      ],
+      "nose": [
+        1,
+        967,
+        353
+      ],
+      "spine1": [
+        1,
+        750,
+        348
+      ],
+      "spine2": [
+        1,
+        708,
+        337
+      ],
+      "spine3": [
+        1,
+        666,
+        340
+      ],
+      "tail1": [
+        1,
+        574,
+        455
+      ],
+      "tail2": [
+        1,
+        482,
+        446
+      ],
+      "tail_tip": [
+        1,
+        404,
+        473
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 15,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        817,
+        571
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        690,
+        535
+      ],
+      "R_frontpaw": [
+        1,
+        769,
+        587
+      ],
+      "R_hip": [
+        1,
+        625,
+        462
+      ],
+      "R_knee": [
+        1,
+        640,
+        515
+      ],
+      "R_shoulder": [
+        1,
+        750,
+        520
+      ],
+      "head": [
+        1,
+        759,
+        349
+      ],
+      "nose": [
+        1,
+        969,
+        339
+      ],
+      "spine1": [
+        1,
+        733,
+        342
+      ],
+      "spine2": [
+        1,
+        695,
+        337
+      ],
+      "spine3": [
+        1,
+        659,
+        345
+      ],
+      "tail1": [
+        1,
+        515,
+        448
+      ],
+      "tail2": [
+        1,
+        460,
+        448
+      ],
+      "tail_tip": [
+        1,
+        411,
+        470
+      ],
+      "tailbase": [
+        1,
+        573,
+        455
+      ]
+    }
+  },
+  {
+    "frame_idx": 26,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        816,
+        566
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        827,
+        509
+      ],
+      "R_backpaw": [
+        1,
+        675,
+        530
+      ],
+      "R_frontpaw": [
+        1,
+        744,
+        582
+      ],
+      "R_hip": [
+        1,
+        625,
+        452
+      ],
+      "R_knee": [
+        1,
+        636,
+        510
+      ],
+      "R_shoulder": [
+        1,
+        691,
+        503
+      ],
+      "head": [
+        1,
+        766,
+        404
+      ],
+      "nose": [
+        1,
+        758,
+        566
+      ],
+      "spine1": [
+        1,
+        758,
+        369
+      ],
+      "spine2": [
+        1,
+        725,
+        343
+      ],
+      "spine3": [
+        1,
+        672,
+        334
+      ],
+      "tail1": [
+        1,
+        572,
+        457
+      ],
+      "tail2": [
+        1,
+        490,
+        449
+      ],
+      "tail_tip": [
+        1,
+        413,
+        461
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 27,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        815,
+        571
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        820,
+        486
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        658,
+        554
+      ],
+      "R_hip": [
+        1,
+        590,
+        453
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        744,
+        419
+      ],
+      "nose": [
+        1,
+        705,
+        562
+      ],
+      "spine1": [
+        1,
+        737,
+        375
+      ],
+      "spine2": [
+        1,
+        701,
+        344
+      ],
+      "spine3": [
+        1,
+        657,
+        338
+      ],
+      "tail1": [
+        1,
+        571,
+        458
+      ],
+      "tail2": [
+        1,
+        492,
+        451
+      ],
+      "tail_tip": [
+        1,
+        419,
+        457
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 31,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        816,
+        565
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        767,
+        487
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        637,
+        590
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        645,
+        418
+      ],
+      "nose": [
+        1,
+        537,
+        581
+      ],
+      "spine1": [
+        1,
+        665,
+        384
+      ],
+      "spine2": [
+        1,
+        671,
+        351
+      ],
+      "spine3": [
+        1,
+        658,
+        327
+      ],
+      "tail1": [
+        1,
+        569,
+        454
+      ],
+      "tail2": [
+        1,
+        491,
+        450
+      ],
+      "tail_tip": [
+        1,
+        418,
+        437
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 32,
+    "labels": {
+      "L_backpaw": [
+        1,
+        751,
+        525
+      ],
+      "L_frontpaw": [
+        1,
+        731,
+        555
+      ],
+      "L_hip": [
+        1,
+        750,
+        392
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        744,
+        494
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        632,
+        583
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        634,
+        411
+      ],
+      "nose": [
+        1,
+        511,
+        580
+      ],
+      "spine1": [
+        1,
+        674,
+        386
+      ],
+      "spine2": [
+        1,
+        687,
+        349
+      ],
+      "spine3": [
+        1,
+        647,
+        323
+      ],
+      "tail1": [
+        1,
+        549,
+        451
+      ],
+      "tail2": [
+        1,
+        480,
+        445
+      ],
+      "tail_tip": [
+        1,
+        429,
+        438
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 37,
+    "labels": {
+      "L_backpaw": [
+        1,
+        734,
+        518
+      ],
+      "L_frontpaw": [
+        1,
+        496,
+        610
+      ],
+      "L_hip": [
+        1,
+        729,
+        426
+      ],
+      "L_knee": [
+        1,
+        715,
+        494
+      ],
+      "L_shoulder": [
+        1,
+        565,
+        566
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        503,
+        436
+      ],
+      "nose": [
+        1,
+        367,
+        601
+      ],
+      "spine1": [
+        1,
+        551,
+        401
+      ],
+      "spine2": [
+        1,
+        595,
+        372
+      ],
+      "spine3": [
+        1,
+        638,
+        335
+      ],
+      "tail1": [
+        0,
+        null,
+        null
+      ],
+      "tail2": [
+        0,
+        null,
+        null
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 40,
+    "labels": {
+      "L_backpaw": [
+        1,
+        737,
+        514
+      ],
+      "L_frontpaw": [
+        1,
+        500,
+        610
+      ],
+      "L_hip": [
+        1,
+        682,
+        423
+      ],
+      "L_knee": [
+        1,
+        709,
+        469
+      ],
+      "L_shoulder": [
+        1,
+        538,
+        544
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        440,
+        435
+      ],
+      "nose": [
+        1,
+        295,
+        613
+      ],
+      "spine1": [
+        1,
+        499,
+        402
+      ],
+      "spine2": [
+        1,
+        553,
+        360
+      ],
+      "spine3": [
+        1,
+        602,
+        330
+      ],
+      "tail1": [
+        0,
+        null,
+        null
+      ],
+      "tail2": [
+        0,
+        null,
+        null
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        0,
+        null,
+        null
+      ]
+    }
+  },
+  {
+    "frame_idx": 42,
+    "labels": {
+      "L_backpaw": [
+        1,
+        593,
+        533
+      ],
+      "L_frontpaw": [
+        1,
+        499,
+        609
+      ],
+      "L_hip": [
+        1,
+        650,
+        453
+      ],
+      "L_knee": [
+        1,
+        619,
+        510
+      ],
+      "L_shoulder": [
+        1,
+        529,
+        536
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        383,
+        445
+      ],
+      "nose": [
+        1,
+        235,
+        622
+      ],
+      "spine1": [
+        1,
+        452,
+        401
+      ],
+      "spine2": [
+        1,
+        512,
+        351
+      ],
+      "spine3": [
+        1,
+        588,
+        328
+      ],
+      "tail1": [
+        1,
+        700,
+        419
+      ],
+      "tail2": [
+        1,
+        684,
+        412
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        686,
+        430
+      ]
+    }
+  },
+  {
+    "frame_idx": 44,
+    "labels": {
+      "L_backpaw": [
+        1,
+        568,
+        567
+      ],
+      "L_frontpaw": [
+        1,
+        449,
+        585
+      ],
+      "L_hip": [
+        1,
+        623,
+        462
+      ],
+      "L_knee": [
+        1,
+        611,
+        537
+      ],
+      "L_shoulder": [
+        1,
+        472,
+        524
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        368,
+        601
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        368,
+        443
+      ],
+      "nose": [
+        1,
+        205,
+        623
+      ],
+      "spine1": [
+        1,
+        443,
+        397
+      ],
+      "spine2": [
+        1,
+        524,
+        340
+      ],
+      "spine3": [
+        1,
+        617,
+        357
+      ],
+      "tail1": [
+        1,
+        716,
+        420
+      ],
+      "tail2": [
+        1,
+        665,
+        411
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        685,
+        441
+      ]
+    }
+  },
+  {
+    "frame_idx": 47,
+    "labels": {
+      "L_backpaw": [
+        1,
+        571,
+        566
+      ],
+      "L_frontpaw": [
+        1,
+        373,
+        624
+      ],
+      "L_hip": [
+        1,
+        616,
+        480
+      ],
+      "L_knee": [
+        1,
+        613,
+        543
+      ],
+      "L_shoulder": [
+        1,
+        430,
+        575
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        348,
+        448
+      ],
+      "nose": [
+        1,
+        174,
+        636
+      ],
+      "spine1": [
+        1,
+        435,
+        409
+      ],
+      "spine2": [
+        1,
+        510,
+        365
+      ],
+      "spine3": [
+        1,
+        603,
+        351
+      ],
+      "tail1": [
+        1,
+        726,
+        408
+      ],
+      "tail2": [
+        1,
+        668,
+        404
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        691,
+        437
+      ]
+    }
+  },
+  {
+    "frame_idx": 49,
+    "labels": {
+      "L_backpaw": [
+        1,
+        571,
+        564
+      ],
+      "L_frontpaw": [
+        1,
+        375,
+        626
+      ],
+      "L_hip": [
+        1,
+        606,
+        455
+      ],
+      "L_knee": [
+        1,
+        610,
+        534
+      ],
+      "L_shoulder": [
+        1,
+        441,
+        564
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        359,
+        600
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        341,
+        447
+      ],
+      "nose": [
+        1,
+        172,
+        602
+      ],
+      "spine1": [
+        1,
+        439,
+        403
+      ],
+      "spine2": [
+        1,
+        528,
+        357
+      ],
+      "spine3": [
+        1,
+        622,
+        368
+      ],
+      "tail1": [
+        1,
+        732,
+        412
+      ],
+      "tail2": [
+        1,
+        670,
+        405
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        693,
+        441
+      ]
+    }
+  },
+  {
+    "frame_idx": 50,
+    "labels": {
+      "L_backpaw": [
+        1,
+        571,
+        565
+      ],
+      "L_frontpaw": [
+        1,
+        378,
+        624
+      ],
+      "L_hip": [
+        1,
+        620,
+        482
+      ],
+      "L_knee": [
+        1,
+        609,
+        542
+      ],
+      "L_shoulder": [
+        1,
+        432,
+        567
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        359,
+        601
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        365,
+        429
+      ],
+      "nose": [
+        1,
+        169,
+        587
+      ],
+      "spine1": [
+        1,
+        438,
+        401
+      ],
+      "spine2": [
+        1,
+        516,
+        361
+      ],
+      "spine3": [
+        1,
+        605,
+        354
+      ],
+      "tail1": [
+        1,
+        729,
+        413
+      ],
+      "tail2": [
+        1,
+        671,
+        407
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        694,
+        441
+      ]
+    }
+  },
+  {
+    "frame_idx": 52,
+    "labels": {
+      "L_backpaw": [
+        1,
+        574,
+        564
+      ],
+      "L_frontpaw": [
+        1,
+        371,
+        627
+      ],
+      "L_hip": [
+        1,
+        600,
+        467
+      ],
+      "L_knee": [
+        1,
+        612,
+        540
+      ],
+      "L_shoulder": [
+        1,
+        423,
+        571
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        352,
+        602
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        392,
+        422
+      ],
+      "nose": [
+        1,
+        176,
+        541
+      ],
+      "spine1": [
+        1,
+        469,
+        388
+      ],
+      "spine2": [
+        1,
+        558,
+        354
+      ],
+      "spine3": [
+        1,
+        639,
+        377
+      ],
+      "tail1": [
+        1,
+        737,
+        420
+      ],
+      "tail2": [
+        1,
+        670,
+        408
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        693,
+        445
+      ]
+    }
+  },
+  {
+    "frame_idx": 58,
+    "labels": {
+      "L_backpaw": [
+        1,
+        573,
+        566
+      ],
+      "L_frontpaw": [
+        1,
+        370,
+        624
+      ],
+      "L_hip": [
+        1,
+        617,
+        485
+      ],
+      "L_knee": [
+        1,
+        609,
+        544
+      ],
+      "L_shoulder": [
+        1,
+        439,
+        562
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        361,
+        600
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        432,
+        401
+      ],
+      "nose": [
+        1,
+        197,
+        463
+      ],
+      "spine1": [
+        1,
+        488,
+        377
+      ],
+      "spine2": [
+        1,
+        548,
+        347
+      ],
+      "spine3": [
+        1,
+        607,
+        354
+      ],
+      "tail1": [
+        1,
+        745,
+        432
+      ],
+      "tail2": [
+        1,
+        676,
+        417
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        697,
+        455
+      ]
+    }
+  },
+  {
+    "frame_idx": 61,
+    "labels": {
+      "L_backpaw": [
+        1,
+        568,
+        567
+      ],
+      "L_frontpaw": [
+        1,
+        374,
+        628
+      ],
+      "L_hip": [
+        1,
+        606,
+        475
+      ],
+      "L_knee": [
+        1,
+        609,
+        543
+      ],
+      "L_shoulder": [
+        1,
+        435,
+        562
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        359,
+        602
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        413,
+        397
+      ],
+      "nose": [
+        1,
+        192,
+        471
+      ],
+      "spine1": [
+        1,
+        488,
+        365
+      ],
+      "spine2": [
+        1,
+        570,
+        346
+      ],
+      "spine3": [
+        1,
+        649,
+        385
+      ],
+      "tail1": [
+        1,
+        751,
+        436
+      ],
+      "tail2": [
+        1,
+        677,
+        417
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        700,
+        459
+      ]
+    }
+  },
+  {
+    "frame_idx": 68,
+    "labels": {
+      "L_backpaw": [
+        1,
+        571,
+        566
+      ],
+      "L_frontpaw": [
+        1,
+        372,
+        623
+      ],
+      "L_hip": [
+        1,
+        604,
+        479
+      ],
+      "L_knee": [
+        1,
+        610,
+        540
+      ],
+      "L_shoulder": [
+        1,
+        441,
+        557
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        1,
+        386,
+        552
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        421,
+        401
+      ],
+      "nose": [
+        1,
+        291,
+        530
+      ],
+      "spine1": [
+        1,
+        482,
+        363
+      ],
+      "spine2": [
+        1,
+        538,
+        320
+      ],
+      "spine3": [
+        1,
+        608,
+        336
+      ],
+      "tail1": [
+        1,
+        748,
+        440
+      ],
+      "tail2": [
+        1,
+        683,
+        424
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        694,
+        472
+      ]
+    }
+  },
+  {
+    "frame_idx": 75,
+    "labels": {
+      "L_backpaw": [
+        1,
+        575,
+        564
+      ],
+      "L_frontpaw": [
+        1,
+        377,
+        534
+      ],
+      "L_hip": [
+        1,
+        596,
+        475
+      ],
+      "L_knee": [
+        1,
+        608,
+        541
+      ],
+      "L_shoulder": [
+        1,
+        416,
+        505
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        382,
+        399
+      ],
+      "nose": [
+        1,
+        294,
+        473
+      ],
+      "spine1": [
+        1,
+        453,
+        367
+      ],
+      "spine2": [
+        1,
+        538,
+        324
+      ],
+      "spine3": [
+        1,
+        613,
+        342
+      ],
+      "tail1": [
+        1,
+        765,
+        448
+      ],
+      "tail2": [
+        1,
+        684,
+        427
+      ],
+      "tail_tip": [
+        0,
+        null,
+        null
+      ],
+      "tailbase": [
+        1,
+        696,
+        479
+      ]
+    }
+  },
+  {
+    "frame_idx": 81,
+    "labels": {
+      "L_backpaw": [
+        1,
+        567,
+        566
+      ],
+      "L_frontpaw": [
+        1,
+        366,
+        526
+      ],
+      "L_hip": [
+        1,
+        585,
+        478
+      ],
+      "L_knee": [
+        1,
+        612,
+        538
+      ],
+      "L_shoulder": [
+        1,
+        366,
+        479
+      ],
+      "R_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        394,
+        370
+      ],
+      "nose": [
+        0,
+        null,
+        null
+      ],
+      "spine1": [
+        1,
+        455,
+        353
+      ],
+      "spine2": [
+        1,
+        532,
+        332
+      ],
+      "spine3": [
+        1,
+        609,
+        354
+      ],
+      "tail1": [
+        1,
+        743,
+        482
+      ],
+      "tail2": [
+        1,
+        779,
+        465
+      ],
+      "tail_tip": [
+        1,
+        803,
+        440
+      ],
+      "tailbase": [
+        1,
+        696,
+        480
+      ]
+    }
+  },
+  {
+    "frame_idx": 83,
+    "labels": {
+      "L_backpaw": [
+        1,
+        574,
+        563
+      ],
+      "L_frontpaw": [
+        1,
+        373,
+        524
+      ],
+      "L_hip": [
+        1,
+        561,
+        465
+      ],
+      "L_knee": [
+        1,
+        611,
+        537
+      ],
+      "L_shoulder": [
+        1,
+        381,
+        479
+      ],
+      "R_backpaw": [
+        1,
+        536,
+        527
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        394,
+        368
+      ],
+      "nose": [
+        0,
+        null,
+        null
+      ],
+      "spine1": [
+        1,
+        470,
+        340
+      ],
+      "spine2": [
+        1,
+        565,
+        333
+      ],
+      "spine3": [
+        1,
+        644,
+        394
+      ],
+      "tail1": [
+        1,
+        747,
+        484
+      ],
+      "tail2": [
+        1,
+        789,
+        466
+      ],
+      "tail_tip": [
+        1,
+        814,
+        445
+      ],
+      "tailbase": [
+        1,
+        695,
+        480
+      ]
+    }
+  },
+  {
+    "frame_idx": 86,
+    "labels": {
+      "L_backpaw": [
+        1,
+        568,
+        564
+      ],
+      "L_frontpaw": [
+        1,
+        373,
+        523
+      ],
+      "L_hip": [
+        1,
+        578,
+        474
+      ],
+      "L_knee": [
+        1,
+        612,
+        532
+      ],
+      "L_shoulder": [
+        1,
+        377,
+        465
+      ],
+      "R_backpaw": [
+        1,
+        535,
+        526
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        1,
+        408,
+        356
+      ],
+      "nose": [
+        0,
+        null,
+        null
+      ],
+      "spine1": [
+        1,
+        464,
+        336
+      ],
+      "spine2": [
+        1,
+        531,
+        326
+      ],
+      "spine3": [
+        1,
+        608,
+        352
+      ],
+      "tail1": [
+        1,
+        751,
+        492
+      ],
+      "tail2": [
+        1,
+        797,
+        472
+      ],
+      "tail_tip": [
+        1,
+        817,
+        443
+      ],
+      "tailbase": [
+        1,
+        697,
+        487
+      ]
+    }
+  },
+  {
+    "frame_idx": 88,
+    "labels": {
+      "L_backpaw": [
+        1,
+        572,
+        567
+      ],
+      "L_frontpaw": [
+        1,
+        385,
+        483
+      ],
+      "L_hip": [
+        1,
+        563,
+        464
+      ],
+      "L_knee": [
+        1,
+        612,
+        529
+      ],
+      "L_shoulder": [
+        1,
+        379,
+        445
+      ],
+      "R_backpaw": [
+        1,
+        539,
+        525
+      ],
+      "R_frontpaw": [
+        1,
+        426,
+        503
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        0,
+        null,
+        null
+      ],
+      "nose": [
+        0,
+        null,
+        null
+      ],
+      "spine1": [
+        1,
+        440,
+        341
+      ],
+      "spine2": [
+        1,
+        542,
+        325
+      ],
+      "spine3": [
+        1,
+        636,
+        403
+      ],
+      "tail1": [
+        1,
+        742,
+        502
+      ],
+      "tail2": [
+        1,
+        800,
+        491
+      ],
+      "tail_tip": [
+        1,
+        816,
+        453
+      ],
+      "tailbase": [
+        1,
+        684,
+        489
+      ]
+    }
+  },
+  {
+    "frame_idx": 89,
+    "labels": {
+      "L_backpaw": [
+        1,
+        569,
+        561
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        1,
+        572,
+        470
+      ],
+      "L_knee": [
+        1,
+        607,
+        525
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        539,
+        526
+      ],
+      "R_frontpaw": [
+        1,
+        431,
+        502
+      ],
+      "R_hip": [
+        0,
+        null,
+        null
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "head": [
+        0,
+        null,
+        null
+      ],
+      "nose": [
+        0,
+        null,
+        null
+      ],
+      "spine1": [
+        1,
+        416,
+        340
+      ],
+      "spine2": [
+        1,
+        520,
+        313
+      ],
+      "spine3": [
+        1,
+        613,
+        372
+      ],
+      "tail1": [
+        1,
+        736,
+        502
+      ],
+      "tail2": [
+        1,
+        797,
+        498
+      ],
+      "tail_tip": [
+        1,
+        814,
+        462
+      ],
+      "tailbase": [
+        1,
+        677,
+        485
+      ]
+    }
+  },
+  {
+    "frame_idx": 102,
+    "labels": {
+      "L_backpaw": [
+        1,
+        441,
+        486
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        1,
+        430,
+        405
+      ],
+      "L_knee": [
+        1,
+        460,
+        491
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        595,
+        484
+      ],
+      "R_frontpaw": [
+        1,
+        614,
+        468
+      ],
+      "R_hip": [
+        1,
+        560,
+        408
+      ],
+      "R_knee": [
+        1,
+        544,
+        479
+      ],
+      "R_shoulder": [
+        1,
+        594,
+        428
+      ],
+      "head": [
+        1,
+        608,
+        343
+      ],
+      "nose": [
+        1,
+        681,
+        430
+      ],
+      "spine1": [
+        1,
+        570,
+        320
+      ],
+      "spine2": [
+        1,
+        498,
+        290
+      ],
+      "spine3": [
+        1,
+        462,
+        353
+      ],
+      "tail1": [
+        1,
+        527,
+        523
+      ],
+      "tail2": [
+        1,
+        601,
+        548
+      ],
+      "tail_tip": [
+        1,
+        741,
+        564
+      ],
+      "tailbase": [
+        1,
+        475,
+        481
+      ]
+    }
+  },
+  {
+    "frame_idx": 104,
+    "labels": {
+      "L_backpaw": [
+        1,
+        438,
+        487
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        1,
+        435,
+        431
+      ],
+      "L_knee": [
+        1,
+        452,
+        491
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        592,
+        487
+      ],
+      "R_frontpaw": [
+        1,
+        614,
+        466
+      ],
+      "R_hip": [
+        1,
+        574,
+        409
+      ],
+      "R_knee": [
+        1,
+        546,
+        491
+      ],
+      "R_shoulder": [
+        1,
+        602,
+        435
+      ],
+      "head": [
+        1,
+        621,
+        350
+      ],
+      "nose": [
+        1,
+        702,
+        431
+      ],
+      "spine1": [
+        1,
+        569,
+        317
+      ],
+      "spine2": [
+        1,
+        513,
+        294
+      ],
+      "spine3": [
+        1,
+        464,
+        350
+      ],
+      "tail1": [
+        1,
+        507,
+        538
+      ],
+      "tail2": [
+        1,
+        608,
+        563
+      ],
+      "tail_tip": [
+        1,
+        736,
+        561
+      ],
+      "tailbase": [
+        1,
+        470,
+        467
+      ]
+    }
+  },
+  {
+    "frame_idx": 105,
+    "labels": {
+      "L_backpaw": [
+        1,
+        441,
+        486
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        1,
+        441,
+        393
+      ],
+      "L_knee": [
+        1,
+        452,
+        492
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        595,
+        485
+      ],
+      "R_frontpaw": [
+        1,
+        614,
+        468
+      ],
+      "R_hip": [
+        1,
+        577,
+        407
+      ],
+      "R_knee": [
+        1,
+        550,
+        492
+      ],
+      "R_shoulder": [
+        1,
+        604,
+        430
+      ],
+      "head": [
+        1,
+        630,
+        349
+      ],
+      "nose": [
+        1,
+        707,
+        436
+      ],
+      "spine1": [
+        1,
+        566,
+        302
+      ],
+      "spine2": [
+        1,
+        496,
+        316
+      ],
+      "spine3": [
+        1,
+        479,
+        401
+      ],
+      "tail1": [
+        1,
+        489,
+        529
+      ],
+      "tail2": [
+        1,
+        569,
+        559
+      ],
+      "tail_tip": [
+        1,
+        715,
+        560
+      ],
+      "tailbase": [
+        1,
+        469,
+        461
+      ]
+    }
+  },
+  {
+    "frame_idx": 110,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        589,
+        485
+      ],
+      "R_frontpaw": [
+        1,
+        686,
+        462
+      ],
+      "R_hip": [
+        1,
+        584,
+        417
+      ],
+      "R_knee": [
+        1,
+        544,
+        484
+      ],
+      "R_shoulder": [
+        1,
+        647,
+        421
+      ],
+      "head": [
+        1,
+        691,
+        358
+      ],
+      "nose": [
+        1,
+        775,
+        438
+      ],
+      "spine1": [
+        1,
+        603,
+        319
+      ],
+      "spine2": [
+        1,
+        534,
+        311
+      ],
+      "spine3": [
+        1,
+        487,
+        370
+      ],
+      "tail1": [
+        1,
+        451,
+        507
+      ],
+      "tail2": [
+        1,
+        535,
+        553
+      ],
+      "tail_tip": [
+        1,
+        645,
+        572
+      ],
+      "tailbase": [
+        1,
+        467,
+        440
+      ]
+    }
+  },
+  {
+    "frame_idx": 113,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        586,
+        487
+      ],
+      "R_frontpaw": [
+        1,
+        748,
+        467
+      ],
+      "R_hip": [
+        1,
+        577,
+        421
+      ],
+      "R_knee": [
+        1,
+        543,
+        477
+      ],
+      "R_shoulder": [
+        1,
+        710,
+        450
+      ],
+      "head": [
+        1,
+        728,
+        369
+      ],
+      "nose": [
+        1,
+        813,
+        447
+      ],
+      "spine1": [
+        1,
+        671,
+        340
+      ],
+      "spine2": [
+        1,
+        591,
+        315
+      ],
+      "spine3": [
+        1,
+        525,
+        329
+      ],
+      "tail1": [
+        1,
+        435,
+        482
+      ],
+      "tail2": [
+        1,
+        502,
+        539
+      ],
+      "tail_tip": [
+        1,
+        615,
+        573
+      ],
+      "tailbase": [
+        1,
+        474,
+        428
+      ]
+    }
+  },
+  {
+    "frame_idx": 114,
+    "labels": {
+      "L_backpaw": [
+        1,
+        581,
+        470
+      ],
+      "L_frontpaw": [
+        1,
+        682,
+        465
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        1,
+        527,
+        469
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        584,
+        487
+      ],
+      "R_frontpaw": [
+        1,
+        748,
+        468
+      ],
+      "R_hip": [
+        1,
+        580,
+        421
+      ],
+      "R_knee": [
+        1,
+        543,
+        472
+      ],
+      "R_shoulder": [
+        1,
+        713,
+        453
+      ],
+      "head": [
+        1,
+        732,
+        362
+      ],
+      "nose": [
+        1,
+        819,
+        444
+      ],
+      "spine1": [
+        1,
+        655,
+        333
+      ],
+      "spine2": [
+        1,
+        590,
+        315
+      ],
+      "spine3": [
+        1,
+        527,
+        345
+      ],
+      "tail1": [
+        1,
+        431,
+        476
+      ],
+      "tail2": [
+        1,
+        482,
+        532
+      ],
+      "tail_tip": [
+        1,
+        600,
+        574
+      ],
+      "tailbase": [
+        1,
+        473,
+        424
+      ]
+    }
+  },
+  {
+    "frame_idx": 121,
+    "labels": {
+      "L_backpaw": [
+        1,
+        574,
+        469
+      ],
+      "L_frontpaw": [
+        1,
+        681,
+        466
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        1,
+        520,
+        474
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        586,
+        490
+      ],
+      "R_frontpaw": [
+        1,
+        743,
+        467
+      ],
+      "R_hip": [
+        1,
+        580,
+        410
+      ],
+      "R_knee": [
+        1,
+        536,
+        470
+      ],
+      "R_shoulder": [
+        1,
+        712,
+        443
+      ],
+      "head": [
+        1,
+        716,
+        347
+      ],
+      "nose": [
+        1,
+        815,
+        382
+      ],
+      "spine1": [
+        1,
+        655,
+        329
+      ],
+      "spine2": [
+        1,
+        591,
+        313
+      ],
+      "spine3": [
+        1,
+        523,
+        350
+      ],
+      "tail1": [
+        1,
+        409,
+        471
+      ],
+      "tail2": [
+        1,
+        421,
+        534
+      ],
+      "tail_tip": [
+        1,
+        523,
+        591
+      ],
+      "tailbase": [
+        1,
+        461,
+        432
+      ]
+    }
+  },
+  {
+    "frame_idx": 124,
+    "labels": {
+      "L_backpaw": [
+        1,
+        572,
+        471
+      ],
+      "L_frontpaw": [
+        1,
+        682,
+        464
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        595,
+        487
+      ],
+      "R_frontpaw": [
+        1,
+        746,
+        466
+      ],
+      "R_hip": [
+        1,
+        571,
+        413
+      ],
+      "R_knee": [
+        1,
+        536,
+        471
+      ],
+      "R_shoulder": [
+        1,
+        718,
+        435
+      ],
+      "head": [
+        1,
+        713,
+        339
+      ],
+      "nose": [
+        1,
+        816,
+        358
+      ],
+      "spine1": [
+        1,
+        658,
+        329
+      ],
+      "spine2": [
+        1,
+        587,
+        316
+      ],
+      "spine3": [
+        1,
+        519,
+        349
+      ],
+      "tail1": [
+        1,
+        409,
+        465
+      ],
+      "tail2": [
+        1,
+        406,
+        531
+      ],
+      "tail_tip": [
+        1,
+        507,
+        595
+      ],
+      "tailbase": [
+        1,
+        460,
+        429
+      ]
+    }
+  },
+  {
+    "frame_idx": 129,
+    "labels": {
+      "L_backpaw": [
+        1,
+        571,
+        470
+      ],
+      "L_frontpaw": [
+        1,
+        681,
+        462
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        1,
+        519,
+        473
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        589,
+        489
+      ],
+      "R_frontpaw": [
+        1,
+        740,
+        468
+      ],
+      "R_hip": [
+        1,
+        581,
+        412
+      ],
+      "R_knee": [
+        1,
+        537,
+        465
+      ],
+      "R_shoulder": [
+        1,
+        710,
+        430
+      ],
+      "head": [
+        1,
+        706,
+        331
+      ],
+      "nose": [
+        1,
+        814,
+        327
+      ],
+      "spine1": [
+        1,
+        642,
+        324
+      ],
+      "spine2": [
+        1,
+        568,
+        320
+      ],
+      "spine3": [
+        1,
+        507,
+        367
+      ],
+      "tail1": [
+        1,
+        411,
+        458
+      ],
+      "tail2": [
+        1,
+        369,
+        523
+      ],
+      "tail_tip": [
+        1,
+        455,
+        587
+      ],
+      "tailbase": [
+        1,
+        461,
+        432
+      ]
+    }
+  },
+  {
+    "frame_idx": 131,
+    "labels": {
+      "L_backpaw": [
+        1,
+        577,
+        470
+      ],
+      "L_frontpaw": [
+        1,
+        678,
+        459
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        581,
+        488
+      ],
+      "R_frontpaw": [
+        1,
+        748,
+        467
+      ],
+      "R_hip": [
+        1,
+        586,
+        414
+      ],
+      "R_knee": [
+        1,
+        536,
+        463
+      ],
+      "R_shoulder": [
+        1,
+        711,
+        440
+      ],
+      "head": [
+        1,
+        708,
+        324
+      ],
+      "nose": [
+        1,
+        819,
+        313
+      ],
+      "spine1": [
+        1,
+        656,
+        321
+      ],
+      "spine2": [
+        1,
+        594,
+        318
+      ],
+      "spine3": [
+        1,
+        532,
+        339
+      ],
+      "tail1": [
+        1,
+        390,
+        463
+      ],
+      "tail2": [
+        1,
+        349,
+        523
+      ],
+      "tail_tip": [
+        1,
+        402,
+        580
+      ],
+      "tailbase": [
+        1,
+        461,
+        427
+      ]
+    }
+  },
+  {
+    "frame_idx": 133,
+    "labels": {
+      "L_backpaw": [
+        1,
+        573,
+        470
+      ],
+      "L_frontpaw": [
+        1,
+        676,
+        457
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        590,
+        487
+      ],
+      "R_frontpaw": [
+        1,
+        743,
+        468
+      ],
+      "R_hip": [
+        1,
+        592,
+        418
+      ],
+      "R_knee": [
+        1,
+        534,
+        459
+      ],
+      "R_shoulder": [
+        1,
+        710,
+        433
+      ],
+      "head": [
+        1,
+        714,
+        322
+      ],
+      "nose": [
+        1,
+        821,
+        295
+      ],
+      "spine1": [
+        1,
+        659,
+        320
+      ],
+      "spine2": [
+        1,
+        595,
+        320
+      ],
+      "spine3": [
+        1,
+        529,
+        345
+      ],
+      "tail1": [
+        1,
+        391,
+        464
+      ],
+      "tail2": [
+        1,
+        337,
+        509
+      ],
+      "tail_tip": [
+        1,
+        335,
+        582
+      ],
+      "tailbase": [
+        1,
+        462,
+        430
+      ]
+    }
+  },
+  {
+    "frame_idx": 134,
+    "labels": {
+      "L_backpaw": [
+        1,
+        575,
+        471
+      ],
+      "L_frontpaw": [
+        1,
+        678,
+        459
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        1,
+        518,
+        469
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        586,
+        489
+      ],
+      "R_frontpaw": [
+        1,
+        747,
+        469
+      ],
+      "R_hip": [
+        1,
+        587,
+        416
+      ],
+      "R_knee": [
+        1,
+        541,
+        456
+      ],
+      "R_shoulder": [
+        1,
+        717,
+        421
+      ],
+      "head": [
+        1,
+        717,
+        313
+      ],
+      "nose": [
+        1,
+        815,
+        287
+      ],
+      "spine1": [
+        1,
+        645,
+        315
+      ],
+      "spine2": [
+        1,
+        577,
+        326
+      ],
+      "spine3": [
+        1,
+        516,
+        366
+      ],
+      "tail1": [
+        1,
+        405,
+        458
+      ],
+      "tail2": [
+        1,
+        336,
+        507
+      ],
+      "tail_tip": [
+        1,
+        299,
+        586
+      ],
+      "tailbase": [
+        1,
+        468,
+        427
+      ]
+    }
+  },
+  {
+    "frame_idx": 153,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        672,
+        492
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        1,
+        648,
+        406
+      ],
+      "R_knee": [
+        1,
+        627,
+        476
+      ],
+      "R_shoulder": [
+        1,
+        687,
+        445
+      ],
+      "head": [
+        1,
+        752,
+        358
+      ],
+      "nose": [
+        1,
+        798,
+        494
+      ],
+      "spine1": [
+        1,
+        698,
+        324
+      ],
+      "spine2": [
+        1,
+        622,
+        298
+      ],
+      "spine3": [
+        1,
+        532,
+        347
+      ],
+      "tail1": [
+        1,
+        421,
+        464
+      ],
+      "tail2": [
+        1,
+        338,
+        505
+      ],
+      "tail_tip": [
+        1,
+        242,
+        563
+      ],
+      "tailbase": [
+        1,
+        489,
+        432
+      ]
+    }
+  },
+  {
+    "frame_idx": 155,
+    "labels": {
+      "L_backpaw": [
+        1,
+        547,
+        464
+      ],
+      "L_frontpaw": [
+        1,
+        772,
+        517
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        680,
+        497
+      ],
+      "R_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "R_hip": [
+        1,
+        629,
+        421
+      ],
+      "R_knee": [
+        1,
+        624,
+        483
+      ],
+      "R_shoulder": [
+        1,
+        687,
+        450
+      ],
+      "head": [
+        1,
+        750,
+        359
+      ],
+      "nose": [
+        1,
+        811,
+        511
+      ],
+      "spine1": [
+        1,
+        691,
+        319
+      ],
+      "spine2": [
+        1,
+        620,
+        310
+      ],
+      "spine3": [
+        1,
+        551,
+        342
+      ],
+      "tail1": [
+        1,
+        398,
+        468
+      ],
+      "tail2": [
+        1,
+        321,
+        509
+      ],
+      "tail_tip": [
+        1,
+        234,
+        557
+      ],
+      "tailbase": [
+        1,
+        481,
+        425
+      ]
+    }
+  },
+  {
+    "frame_idx": 161,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        657,
+        498
+      ],
+      "R_frontpaw": [
+        1,
+        784,
+        588
+      ],
+      "R_hip": [
+        1,
+        604,
+        424
+      ],
+      "R_knee": [
+        1,
+        625,
+        481
+      ],
+      "R_shoulder": [
+        1,
+        737,
+        521
+      ],
+      "head": [
+        1,
+        801,
+        420
+      ],
+      "nose": [
+        1,
+        905,
+        596
+      ],
+      "spine1": [
+        1,
+        754,
+        378
+      ],
+      "spine2": [
+        1,
+        707,
+        351
+      ],
+      "spine3": [
+        1,
+        654,
+        332
+      ],
+      "tail1": [
+        1,
+        453,
+        413
+      ],
+      "tail2": [
+        1,
+        374,
+        455
+      ],
+      "tail_tip": [
+        1,
+        291,
+        540
+      ],
+      "tailbase": [
+        1,
+        533,
+        405
+      ]
+    }
+  },
+  {
+    "frame_idx": 165,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        656,
+        505
+      ],
+      "R_frontpaw": [
+        1,
+        786,
+        593
+      ],
+      "R_hip": [
+        1,
+        623,
+        439
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        1,
+        740,
+        533
+      ],
+      "head": [
+        1,
+        819,
+        435
+      ],
+      "nose": [
+        1,
+        926,
+        616
+      ],
+      "spine1": [
+        1,
+        776,
+        393
+      ],
+      "spine2": [
+        1,
+        713,
+        356
+      ],
+      "spine3": [
+        1,
+        648,
+        347
+      ],
+      "tail1": [
+        1,
+        506,
+        395
+      ],
+      "tail2": [
+        1,
+        411,
+        434
+      ],
+      "tail_tip": [
+        1,
+        334,
+        494
+      ],
+      "tailbase": [
+        1,
+        589,
+        395
+      ]
+    }
+  },
+  {
+    "frame_idx": 168,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        647,
+        497
+      ],
+      "R_frontpaw": [
+        1,
+        781,
+        586
+      ],
+      "R_hip": [
+        1,
+        631,
+        441
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        1,
+        735,
+        515
+      ],
+      "head": [
+        1,
+        816,
+        420
+      ],
+      "nose": [
+        1,
+        947,
+        546
+      ],
+      "spine1": [
+        1,
+        760,
+        375
+      ],
+      "spine2": [
+        1,
+        720,
+        351
+      ],
+      "spine3": [
+        1,
+        677,
+        342
+      ],
+      "tail1": [
+        1,
+        516,
+        412
+      ],
+      "tail2": [
+        1,
+        430,
+        445
+      ],
+      "tail_tip": [
+        1,
+        347,
+        483
+      ],
+      "tailbase": [
+        1,
+        603,
+        403
+      ]
+    }
+  },
+  {
+    "frame_idx": 169,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        845,
+        573
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        648,
+        497
+      ],
+      "R_frontpaw": [
+        1,
+        783,
+        592
+      ],
+      "R_hip": [
+        1,
+        630,
+        437
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        1,
+        738,
+        519
+      ],
+      "head": [
+        1,
+        810,
+        412
+      ],
+      "nose": [
+        1,
+        943,
+        515
+      ],
+      "spine1": [
+        1,
+        768,
+        379
+      ],
+      "spine2": [
+        1,
+        725,
+        351
+      ],
+      "spine3": [
+        1,
+        683,
+        340
+      ],
+      "tail1": [
+        1,
+        526,
+        418
+      ],
+      "tail2": [
+        1,
+        434,
+        450
+      ],
+      "tail_tip": [
+        1,
+        349,
+        483
+      ],
+      "tailbase": [
+        1,
+        607,
+        408
+      ]
+    }
+  },
+  {
+    "frame_idx": 171,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        846,
+        571
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        647,
+        495
+      ],
+      "R_frontpaw": [
+        1,
+        786,
+        591
+      ],
+      "R_hip": [
+        1,
+        632,
+        438
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        1,
+        740,
+        520
+      ],
+      "head": [
+        1,
+        796,
+        385
+      ],
+      "nose": [
+        1,
+        951,
+        459
+      ],
+      "spine1": [
+        1,
+        763,
+        368
+      ],
+      "spine2": [
+        1,
+        725,
+        345
+      ],
+      "spine3": [
+        1,
+        684,
+        340
+      ],
+      "tail1": [
+        1,
+        523,
+        432
+      ],
+      "tail2": [
+        1,
+        436,
+        455
+      ],
+      "tail_tip": [
+        1,
+        355,
+        479
+      ],
+      "tailbase": [
+        1,
+        610,
+        413
+      ]
+    }
+  },
+  {
+    "frame_idx": 182,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        845,
+        573
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        0,
+        null,
+        null
+      ],
+      "R_backpaw": [
+        1,
+        673,
+        509
+      ],
+      "R_frontpaw": [
+        1,
+        783,
+        594
+      ],
+      "R_hip": [
+        1,
+        640,
+        436
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        1,
+        759,
+        519
+      ],
+      "head": [
+        1,
+        807,
+        344
+      ],
+      "nose": [
+        1,
+        976,
+        366
+      ],
+      "spine1": [
+        1,
+        748,
+        348
+      ],
+      "spine2": [
+        1,
+        699,
+        343
+      ],
+      "spine3": [
+        1,
+        646,
+        365
+      ],
+      "tail1": [
+        1,
+        535,
+        449
+      ],
+      "tail2": [
+        1,
+        455,
+        450
+      ],
+      "tail_tip": [
+        1,
+        388,
+        462
+      ],
+      "tailbase": [
+        1,
+        609,
+        438
+      ]
+    }
+  },
+  {
+    "frame_idx": 186,
+    "labels": {
+      "L_backpaw": [
+        0,
+        null,
+        null
+      ],
+      "L_frontpaw": [
+        1,
+        846,
+        568
+      ],
+      "L_hip": [
+        0,
+        null,
+        null
+      ],
+      "L_knee": [
+        0,
+        null,
+        null
+      ],
+      "L_shoulder": [
+        1,
+        840,
+        509
+      ],
+      "R_backpaw": [
+        1,
+        651,
+        498
+      ],
+      "R_frontpaw": [
+        1,
+        788,
+        595
+      ],
+      "R_hip": [
+        1,
+        628,
+        440
+      ],
+      "R_knee": [
+        0,
+        null,
+        null
+      ],
+      "R_shoulder": [
+        1,
+        750,
+        522
+      ],
+      "head": [
+        0,
+        null,
+        null
+      ],
+      "nose": [
+        1,
+        971,
+        363
+      ],
+      "spine1": [
+        1,
+        758,
+        348
+      ],
+      "spine2": [
+        1,
+        720,
+        339
+      ],
+      "spine3": [
+        1,
+        674,
+        345
+      ],
+      "tail1": [
+        1,
+        527,
+        450
+      ],
+      "tail2": [
+        1,
+        449,
+        450
+      ],
+      "tail_tip": [
+        1,
+        395,
+        457
+      ],
+      "tailbase": [
+        1,
+        610,
+        434
+      ]
+    }
+  }
+]
