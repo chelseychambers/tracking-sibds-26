@@ -51,6 +51,36 @@ def _normalize_output_names(
     return names
 
 
+def _get_frame_number(video_path: str | Path) -> int:
+    resolved_path = Path(video_path)
+    if not resolved_path.is_file():
+        raise FileNotFoundError(f"Video file not found: {resolved_path}")
+
+    capture = cv2.VideoCapture(str(resolved_path))
+    if not capture.isOpened():
+        raise RuntimeError(f"Failed to open video: {resolved_path}")
+
+    try:
+        return int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    finally:
+        capture.release()
+
+
+@overload
+def get_frame_numbers(video_paths: str | Path) -> int: ...
+
+
+@overload
+def get_frame_numbers(video_paths: Sequence[str | Path]) -> list[int]: ...
+
+
+def get_frame_numbers(video_paths: str | Path | Sequence[str | Path]) -> int | list[int]:
+    if isinstance(video_paths, (str, Path)):
+        return _get_frame_number(video_paths)
+
+    return [_get_frame_number(video_path) for video_path in video_paths]
+
+
 def save_frames_with_predictions(
     frames: Sequence[np.ndarray],
     detection_boxes: Sequence[Sequence[dict[str, Any]]],
