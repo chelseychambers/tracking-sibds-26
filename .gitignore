@@ -4,6 +4,7 @@ input/**/*.Identifier
 output/**
 !output/.gitkeep
 videos/**
+!videos/.gitkeep
 test_videos/**
 *.pyc
 .cache
