@@ -36,7 +36,7 @@ from modules.manual_correction_utils import (
 )
 
 PREDICTED_FRAMES_ROOT = PROJECT_ROOT / "output" / "predicted_frames"
-LABELED_FRAMES_ROOT = PROJECT_ROOT / "output" / "labeled_frames"
+LABELED_FRAMES_ROOT = PROJECT_ROOT / "output" / "extracted_frames"
 LABEL_JSON_ROOT = PROJECT_ROOT / "input" / "labels"
 CONFIG_PATH = PROJECT_ROOT / "config.yaml"
 CACHE_ROOT = PROJECT_ROOT / ".cache" / "manual_correction_web"
@@ -45,7 +45,7 @@ CACHE_VERSION = 1
 ALL_VIDEOS = "__ALL_VIDEOS__"
 ALL_KEYPOINTS = "__ALL_KEYPOINTS__"
 
-app.add_static_files("/labeled_frames", str(LABELED_FRAMES_ROOT))
+app.add_static_files("/extracted_frames", str(LABELED_FRAMES_ROOT))
 ui.add_head_html("<style>body{overflow:hidden;} .nicegui-content{overflow:hidden;}</style>", shared=True)
 
 
@@ -136,7 +136,7 @@ def clamp_point(point: tuple[float, float], image_width: float, image_height: fl
 
 def image_url(video_name: str, frame_idx: int, image_path: Path, nonce: str = "") -> str:
     stamp = image_path.stat().st_mtime_ns
-    return f"/labeled_frames/{quote(video_name)}/{frame_idx:08d}.jpg?v={stamp}&n={quote(nonce)}"
+    return f"/extracted_frames/{quote(video_name)}/{frame_idx:08d}.jpg?v={stamp}&n={quote(nonce)}"
 
 
 def extract_all_label_keypoints(label_df: pd.DataFrame) -> list[str]:
