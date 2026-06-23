@@ -44,8 +44,8 @@ frames_root = PROJECT_ROOT / "output" / "extracted_frames"
 output_root = PROJECT_ROOT / "output" / "predicted_frames"
 label_names = None  # Example: ["ai1.json"]
 batch_size = 8
-device = None  # Defaults to the training run's inference/training device.
-detector_device = None  # Defaults to the run config detector device.
+device = "cpu"  # Defaults to the training run's inference/training device.
+detector_device = "cpu"  # Defaults to the run config detector device.
 overwrite = False
 
 

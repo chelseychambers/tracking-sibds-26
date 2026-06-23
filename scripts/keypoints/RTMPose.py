@@ -305,7 +305,7 @@ def resolve_device(requested: str) -> torch.device:
     requested = str(requested or "auto").strip().lower()
 
     if requested == "" or requested == "auto":
-        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        return torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
     if requested == "cuda":
         if not torch.cuda.is_available():
@@ -317,6 +317,10 @@ def resolve_device(requested: str) -> torch.device:
             raise RuntimeError("CUDA requested but not available. Use --device cpu or --device auto.")
         return torch.device(requested)
 
+    if requested == "mps":
+        if not torch.backends.mps.is_available():
+            raise RuntimeError("MPS requested but not available.")
+        return torch.device("mps")
     if requested == "cpu":
         return torch.device("cpu")
 

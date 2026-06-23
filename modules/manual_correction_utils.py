@@ -15,8 +15,13 @@ def get_latest_prediction_root(predicted_frames_root: Path) -> Path:
         raise FileNotFoundError(f"Prediction root not found: {predicted_frames_root}")
 
     model_dirs = [path for path in predicted_frames_root.iterdir() if path.is_dir()]
+    
+    # If there are no subdirectories, check if JSON files exist directly in the root
     if not model_dirs:
-        raise FileNotFoundError(f"No model folders found under {predicted_frames_root}")
+        json_files = list(predicted_frames_root.glob("*.json"))
+        if json_files:
+            return predicted_frames_root
+        raise FileNotFoundError(f"No model folders or prediction JSON files found under {predicted_frames_root}")
 
     return max(model_dirs, key=lambda path: path.stat().st_mtime)
 
