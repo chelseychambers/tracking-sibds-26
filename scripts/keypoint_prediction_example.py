@@ -3,7 +3,7 @@ from modules.keypoint_rtmpose_predict_common import keypoint_extraction_rtmpose,
 from modules.detector_ssdlite_model import detector_extraction_ssdlite, load_detector
 from pathlib import Path
 
-device_obj = "cuda"
+device_obj = "cpu"
 
 detector_path = "output/ssdlite/weak_20260326_090250"
 keypoint_path = "output/RTMPose/no_weak_20260328_174401"
