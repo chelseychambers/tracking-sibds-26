@@ -37,11 +37,12 @@ from modules.keypoint_rtmpose_predict_common import (
 
 
 # Inputs
-model_dir = PROJECT_ROOT / "output" / "RTMPose" / "no_weak_20260328_174401"
-checkpoint_path = None  # Default to the best checkpoint
+# model_dir = PROJECT_ROOT / "output" / "RTMPose" / "no_weak_20260328_174401"
+model_dir = PROJECT_ROOT / "output" / "RTMPose" / "finetune_20260718_224006"
+checkpoint_path = model_dir / "checkpoint_full_finetune.pt"
 label_dir = PROJECT_ROOT / "input" / "labels"
 frames_root = PROJECT_ROOT / "output" / "extracted_frames"
-output_root = PROJECT_ROOT / "output" / "predicted_frames"
+output_root = PROJECT_ROOT / "output" / "predicted_frames" / "finetune"
 label_names = None  # Example: ["ai1.json"]
 batch_size = 8
 device = None  # Defaults to the training run's inference/training device.
@@ -87,7 +88,7 @@ if checkpoint_path is None:
     if model_dir is None:
         raise ValueError("Set model_dir or checkpoint_path before running the cell.")
     model_dir = to_repo_path(model_dir)
-    checkpoint_path = model_dir / "checkpoint_best.pt"
+    checkpoint_path = model_dir / "checkpoint_best_finetune.pt"
 else:
     checkpoint_path = to_repo_path(checkpoint_path)
     model_dir = checkpoint_path.parent

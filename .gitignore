@@ -9,3 +9,5 @@ test_videos/**
 *.pyc
 .cache
 .vscode/*
+.DS_Store
+tracking.zip

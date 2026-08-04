@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0e1117; overflow: hidden; }
+  canvas { display: block; margin: 0 auto; border-radius: 8px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+var canvas = document.getElementById("c");
+var ctx    = canvas.getContext("2d");
+
+var GT   = [];
+var PRED = [];
+var W = 0, H = 0;
+var POINT_R    = 7;
+var SHOW_GT    = true;
+var SHOW_PRED  = true;
+var SHOW_LINES = true;
+var ISOLATE    = "None (Show All)";
+
+var img = new Image();
+img.onload = function() { draw(); };
+
+window.parent.postMessage({
+  isStreamlitMessage: true,
+  type: "streamlit:componentReady",
+  apiVersion: 1
+}, "*");
+
+window.addEventListener("message", function(e) {
+  if (!e.data || e.data.type !== "streamlit:render") return;
+  var a = e.data.args;
+
+  W          = a.display_w;
+  H          = a.display_h;
+  POINT_R    = a.point_r    !== undefined ? a.point_r    : 7;
+  SHOW_GT    = a.show_gt    !== undefined ? a.show_gt    : true;
+  SHOW_PRED  = a.show_pred  !== undefined ? a.show_pred  : true;
+  SHOW_LINES = a.show_lines !== undefined ? a.show_lines : true;
+  ISOLATE    = a.isolate    !== undefined ? a.isolate    : "None (Show All)";
+
+  canvas.width  = W;
+  canvas.height = H;
+
+  GT   = (a.gt_points   || []).map(function(p) { return p; });
+  PRED = (a.pred_points || []).map(function(p) { return p; });
+
+  var newSrc = a.img_src;
+  if (img.src !== newSrc) {
+    img.src = newSrc;
+    if (img.complete && img.naturalWidth) draw();
+  } else {
+    draw();
+  }
+});
+
+function draw() {
+  if (!W || !H) return;
+  ctx.clearRect(0, 0, W, H);
+  if (img.complete && img.naturalWidth) {
+    ctx.drawImage(img, 0, 0, W, H);
+  }
+
+  var gtMap = {};
+  GT.forEach(function(p) { gtMap[p.label] = p; });
+
+  if (SHOW_GT && SHOW_PRED) {
+    PRED.forEach(function(pred) {
+      var gt = gtMap[pred.label];
+      if (!gt) return;
+
+      var isIsolated = (ISOLATE !== "None (Show All)" && pred.label === ISOLATE);
+      var showAll = (SHOW_LINES && ISOLATE === "None (Show All)");
+
+      if (isIsolated || showAll) {
+        ctx.save();
+        ctx.setLineDash([3, 2]);
+        ctx.strokeStyle = "#4da6ff";
+        ctx.lineWidth   = 2.5;
+        ctx.globalAlpha = 0.95;
+        ctx.beginPath();
+        ctx.moveTo(gt.x, gt.y);
+        ctx.lineTo(pred.x, pred.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+  }
+
+  if (SHOW_GT) {
+    GT.forEach(function(p) {
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.8)";
+      ctx.shadowBlur  = 8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, POINT_R, 0, Math.PI * 2);
+      ctx.fillStyle   = "#00cc66";
+      ctx.fill();
+      ctx.restore();
+    });
+  }
+
+  if (SHOW_PRED) {
+    PRED.forEach(function(p) {
+      var len = POINT_R + 1;
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.8)";
+      ctx.shadowBlur  = 6;
+
+      ctx.beginPath();
+      ctx.moveTo(p.x - len, p.y);
+      ctx.lineTo(p.x + len, p.y);
+      ctx.moveTo(p.x, p.y - len);
+      ctx.lineTo(p.x, p.y + len);
+
+      ctx.strokeStyle = "#ff2a55";
+      ctx.lineWidth   = 2.5;
+      ctx.stroke();
+
+      ctx.restore();
+    });
+  }
+}
+</script>
+</body>
+</html>
