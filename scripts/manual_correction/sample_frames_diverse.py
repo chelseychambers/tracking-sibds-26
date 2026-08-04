@@ -8,8 +8,7 @@ For each video:
   2. Filter by mean grayscale brightness (discard dark frames).
   3. Downsample each bright frame to 32x32 grayscale -> 1024-d vector.
   4. Select diverse frames via agglomerative clustering.
-  5. Split into train/test (75/25 temporal split).
-  6. Save frames and create label JSONs.
+  5. Split into train/test (75/25 temporal split)- remove split
 
 Usage:
     python scripts/sample_frames_diverse.py \

@@ -37,6 +37,7 @@ from modules.keypoint_rtmpose_predict_common import (
 )
 from modules.keypoint_rtmpose_model import (
     StandaloneRTMPose,
+    load_rtmpose_checkpoint,
     save_rtmpose_checkpoint,
 )
 
@@ -2583,88 +2584,121 @@ def command_train(args: argparse.Namespace) -> int:
         best_metric = float("inf") if selection_mode == "min" else -float("inf")
         best_epoch = 0
         last_improved_epoch = 0
+        start_epoch = int(getattr(args, "start_epoch", 0))
+        resume_history_path = getattr(args, "resume_history", None)
+
+        # ── Resume from checkpoint ─────────────────────────────────────────
         history: list[dict[str, Any]] = []
+        if resume_history_path is not None:
+            resume_history_path = Path(resume_history_path)
+            if resume_history_path.is_file():
+                history = json.loads(resume_history_path.read_text(encoding="utf-8"))
+                print(f"Resumed history from {resume_history_path} ({len(history)} epochs)")
+                if history:
+                    last_entry = history[-1]
+                    best_epoch = last_entry.get("epoch", 0)
+                    # Restore best_metric from the best entry in history
+                    for entry in history:
+                        val_val = entry.get("val", {}).get("selection_metric", float("nan"))
+                        if val_val is not None and not (isinstance(val_val, float) and math.isnan(val_val)):
+                            if (selection_mode == "min" and val_val < best_metric) or \
+                               (selection_mode == "max" and val_val > best_metric):
+                                best_metric = val_val
+                                best_epoch = entry["epoch"]
+                    last_improved_epoch = best_epoch
+                    print(f"Restored best_metric={best_metric:.6f} at epoch {best_epoch}")
 
-        print("Running pre-training evaluation (epoch 0)")
-        initial_train_eval_metrics = evaluate_pose_model(
-            model,
-            train_eval_loader,
-            device,
-            float(args.lambda_pose),
-            float(args.lambda_mask),
-            float(args.lambda_visibility),
-        )
-        initial_val_metrics = evaluate_pose_model(
-            model,
-            val_loader,
-            device,
-            float(args.lambda_pose),
-            float(args.lambda_mask),
-            float(args.lambda_visibility),
-        )
-        initial_train_loss_eval, initial_train_metric_eval = split_eval_payload(initial_train_eval_metrics)
-        initial_val_loss_eval, initial_val_metric_eval = split_eval_payload(initial_val_metrics)
-        initial_train_metric_value = resolve_selection_score(initial_train_eval_metrics, selection_metric_name)
-        initial_val_metric_value = resolve_selection_score(initial_val_metrics, selection_metric_name)
-        initial_summary = {
-            "epoch": 0,
-            "train": {
-                "loss": float(initial_train_loss_eval["loss"]),
-                "loss_eval": initial_train_loss_eval,
-                "metric_eval": initial_train_metric_eval,
-                "selection_metric_name": selection_metric_name,
-                "selection_metric": initial_train_metric_value,
-                "sampled_labeled_count": 0,
-                "sampled_weak_count": 0,
-                "optimization": {},
-            },
-            "val": {
-                "loss": float(initial_val_loss_eval["loss"]),
-                "loss_eval": initial_val_loss_eval,
-                "metric_eval": initial_val_metric_eval,
-                "selection_metric_name": selection_metric_name,
-                "selection_metric": initial_val_metric_value,
-            },
-            "lr": float(optimizer.param_groups[0]["lr"]),
-            "evaluated": True,
-        }
-        history.append(initial_summary)
-        write_json(run_dir / "history.json", history)
-        best_metric = initial_val_metric_value
-        best_epoch = 0
-        last_improved_epoch = 0
-        best_summary = {
-            "epoch": best_epoch,
-            "selection_metric_name": selection_metric_name,
-            "selection_metric_value": float(best_metric),
-            "selection_mode": selection_mode,
-            "train": initial_summary["train"],
-            "val": initial_summary["val"],
-            "lr": initial_summary["lr"],
-            "checkpoint": "checkpoint_best.pt",
-        }
-        save_rtmpose_checkpoint(
-            run_dir / "checkpoint_best.pt",
-            model,
-            optimizer=optimizer,
-            scaler=scaler,
-            extra_state={
+        if start_epoch > 0:
+            # Load optimizer + scaler state from checkpoint for resumed training
+            ckpt_payload = load_rtmpose_checkpoint(
+                init_checkpoint, model, optimizer=optimizer, scaler=scaler,
+            )
+            # Fast-forward the scheduler to the correct step
+            for _ in range(start_epoch):
+                if scheduler is not None:
+                    scheduler.step()
+            print(f"Resumed optimizer/scheduler state from epoch {start_epoch}")
+        else:
+            print("Running pre-training evaluation (epoch 0)")
+            initial_train_eval_metrics = evaluate_pose_model(
+                model,
+                train_eval_loader,
+                device,
+                float(args.lambda_pose),
+                float(args.lambda_mask),
+                float(args.lambda_visibility),
+            )
+            initial_val_metrics = evaluate_pose_model(
+                model,
+                val_loader,
+                device,
+                float(args.lambda_pose),
+                float(args.lambda_mask),
+                float(args.lambda_visibility),
+            )
+            initial_train_loss_eval, initial_train_metric_eval = split_eval_payload(initial_train_eval_metrics)
+            initial_val_loss_eval, initial_val_metric_eval = split_eval_payload(initial_val_metrics)
+            initial_train_metric_value = resolve_selection_score(initial_train_eval_metrics, selection_metric_name)
+            initial_val_metric_value = resolve_selection_score(initial_val_metrics, selection_metric_name)
+            initial_summary = {
                 "epoch": 0,
-                "history": history,
-                "model_config": make_serializable(model_cfg),
-                "bodyparts": list(project_cfg.bodyparts),
-            },
-        )
-        export_best_epoch_files(run_dir, best_summary)
-        print(
-            "Epoch 000 pretrain_eval "
-            f"train_rmse={initial_train_metric_eval.get('rmse_unfiltered', float('nan')):.4f} "
-            f"train_rmse_90={initial_train_metric_eval.get('rmse_90', float('nan')):.4f} "
-            f"val_rmse={initial_val_metric_eval.get('rmse_unfiltered', float('nan')):.4f} "
-            f"val_rmse_90={initial_val_metric_eval.get('rmse_90', float('nan')):.4f}"
-        )
+                "train": {
+                    "loss": float(initial_train_loss_eval["loss"]),
+                    "loss_eval": initial_train_loss_eval,
+                    "metric_eval": initial_train_metric_eval,
+                    "selection_metric_name": selection_metric_name,
+                    "selection_metric": initial_train_metric_value,
+                    "sampled_labeled_count": 0,
+                    "sampled_weak_count": 0,
+                    "optimization": {},
+                },
+                "val": {
+                    "loss": float(initial_val_loss_eval["loss"]),
+                    "loss_eval": initial_val_loss_eval,
+                    "metric_eval": initial_val_metric_eval,
+                    "selection_metric_name": selection_metric_name,
+                    "selection_metric": initial_val_metric_value,
+                },
+                "lr": float(optimizer.param_groups[0]["lr"]),
+                "evaluated": True,
+            }
+            history.append(initial_summary)
+            write_json(run_dir / "history.json", history)
+            best_metric = initial_val_metric_value
+            best_epoch = 0
+            last_improved_epoch = 0
+            best_summary = {
+                "epoch": best_epoch,
+                "selection_metric_name": selection_metric_name,
+                "selection_metric_value": float(best_metric),
+                "selection_mode": selection_mode,
+                "train": initial_summary["train"],
+                "val": initial_summary["val"],
+                "lr": initial_summary["lr"],
+                "checkpoint": "checkpoint_best.pt",
+            }
+            save_rtmpose_checkpoint(
+                run_dir / "checkpoint_best.pt",
+                model,
+                optimizer=optimizer,
+                scaler=scaler,
+                extra_state={
+                    "epoch": 0,
+                    "history": history,
+                    "model_config": make_serializable(model_cfg),
+                    "bodyparts": list(project_cfg.bodyparts),
+                },
+            )
+            export_best_epoch_files(run_dir, best_summary)
+            print(
+                "Epoch 000 pretrain_eval "
+                f"train_rmse={initial_train_metric_eval.get('rmse_unfiltered', float('nan')):.4f} "
+                f"train_rmse_90={initial_train_metric_eval.get('rmse_90', float('nan')):.4f} "
+                f"val_rmse={initial_val_metric_eval.get('rmse_unfiltered', float('nan')):.4f} "
+                f"val_rmse_90={initial_val_metric_eval.get('rmse_90', float('nan')):.4f}"
+            )
 
-        for epoch in range(1, int(args.epochs) + 1):
+        for epoch in range(max(start_epoch, 1), int(args.epochs) + 1):
             sampled_train_labeled_samples = sample_epoch_train_samples(
                 filtered_indices["train"].labeled_samples,
                 int(getattr(args, "train_labeled_samples_per_epoch", 0)),
@@ -3216,6 +3250,10 @@ def build_parser() -> argparse.ArgumentParser:
     train_parser.add_argument("--freeze-backbone", action=argparse.BooleanOptionalAction, default=True)
     train_parser.add_argument("--amp", action="store_true")
     train_parser.add_argument("--log-interval", type=int, default=10)
+    train_parser.add_argument("--start-epoch", type=int, default=0,
+                              help="Epoch to resume from (skips earlier epochs and pre-training eval).")
+    train_parser.add_argument("--resume-history", type=Path, default=None,
+                              help="Path to existing history.json to resume from.")
 
     eval_parser = subparsers.add_parser("eval")
     eval_parser.add_argument("--checkpoint", type=Path, required=True)

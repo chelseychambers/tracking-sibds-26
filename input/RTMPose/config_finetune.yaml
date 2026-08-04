@@ -1,0 +1,7 @@
+weak_sample_weight: 0
+preload_images: false
+preload_masks: false
+training:
+  epochs: 100
+  train_labeled_samples_per_epoch: 0
+  train_weak_samples_per_epoch: 0
